@@ -7,6 +7,10 @@ tags: ['test']
 # Set your video id for
 youtube: "WY10wS39GDw"
 vimeo: ""       # https://vimeo.com/239830182 -> "239830182"
+
+showDate: false
+categories: false
+tags: false
 ---
 This is proof of a post with a video.
 

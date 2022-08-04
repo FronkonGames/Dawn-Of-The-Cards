@@ -4,7 +4,11 @@ date: 2021-11-01T09:31:27+01:00
 
 categories: ['Devblog', 'Code']
 tags: ['test']
+
 #author: ""
+showDate: false
+categories: false
+tags: false
 ---
 
 This is proof of a post with code.

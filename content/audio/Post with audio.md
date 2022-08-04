@@ -11,6 +11,10 @@ spotify:    ""     # 0qDZPJGUALZC7vSahlekhu
 soundcloud: "https://soundcloud.com/user-225291033-242401631/wolfgan-doom-1"     # https://soundcloud.com/lightbooks/alchemist-08-new-world-order-snip
 tunein:     ""     # t117894382
 mixcloud:   ""     # scienceforthepeople/445-ai-ant-intelligence
+
+showDate: false
+categories: false
+tags: false
 ---
 
 This is proof of a post with Soundcloud audio.

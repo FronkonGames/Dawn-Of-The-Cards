@@ -7,5 +7,7 @@ tags: ['test']
 
 # Set your external url
 link: "https://fronkongames.github.io/"
+
+showDate: false
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.

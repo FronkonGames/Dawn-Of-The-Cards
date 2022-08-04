@@ -3,8 +3,11 @@ title: "Article (test)"
 date: 2021-11-01T18:10:14+01:00
 
 tags: ['Devblog', 'Article']
-#author: "Lednerb"
-noSummary: true
+
+#author: ""
+showDate: false
+categories: false
+tags: false
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet risus vestibulum fringilla. Sed egestas turpis eu enim faucibus, quis pharetra enim faucibus. Ut varius convallis ante. Suspendisse blandit nisi ut felis hendrerit, in dictum massa pulvinar. Ut ac massa id mauris dictum efficitur. Duis sed purus nisi. Nulla nec mauris mattis, hendrerit lacus non, mattis turpis. Phasellus rhoncus vulputate odio eleifend lacinia.
