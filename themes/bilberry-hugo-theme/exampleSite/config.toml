@@ -1,8 +1,11 @@
-title = "Dawn Of The Cards"
-baseURL = "https://fronkongames.github.io/Dawn-Of-The-Cards/"
+title = "My cool new Blog"
+baseURL = "https://example.com/"
+
+# Option 1 (recommended): adding the theme as a Hugo module
+theme = "github.com/Lednerb/bilberry-hugo-theme/v3"
 
 # Option 2: cloning/copying the theme files
-theme = "bilberry-hugo-theme"
+# theme = "bilberry-hugo-theme"
 
 # Generate the robots.txt file for SEO
 enableRobotsTXT = true
@@ -25,9 +28,9 @@ disqusShortname = ""
   js_modules = []
 
   # Description and meta data for the search engines
-  author = "Martin Bustos"
-  description = "Devblog of the in-development game 'Dawn Of The Cards'."
-  keywords = "devblog,gamedev,gamedevelopment,indiedev,unity,unity3d,roguelike,deckbuilding,zombie,zombies,dawn,cards"
+  author = "Lednerb"
+  description = "Bilberry Premium Theme for Hugo."
+  keywords = "blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts"
 
   # How many articles should be displayed at once?
   paginate = 7
@@ -77,10 +80,10 @@ disqusShortname = ""
 
   # Header configuration
     # your subtitle if you want to use any
-    subtitle = "A devblog of a card and zombie game"
+    subtitle = "Hello World! This is the most epic subtitle ever."
 
     # if you want to use libravatar or gravatar for the header image
-    avatarEmail = "fronkongames@gmail.com"
+    avatarEmail = "code@lednerb.de"
 
     # set an path to the image file you want to use | overwrites avatar by email
     customImage = ""
@@ -145,15 +148,15 @@ disqusShortname = ""
     # all icons https://fontawesome.com/icons?d=gallery&m=free
     # brand icons https://fontawesome.com/icons?d=gallery&s=brands&m=free
     socialMediaLinks = [
-      { link = "https://twitter.com/fronkongames", icon = "fab fa-twitter" },
-      { link = "https://github.com/FronkonGames", icon = "fab fa-github" },
+      { link = "https://twitter.com/TheRealLednerb", icon = "fab fa-twitter" },
+      { link = "https://github.com/Lednerb", icon = "fab fa-github" },
     ]
 
     # credits line configuration
-    copyrightBy = "by Fronkon Games"
+    copyrightBy = "by Lednerb"
     copyrightUseCurrentYear = true  # set to true to always display the current year in the copyright
     copyrightYearOverride = "2017"
-    copyrightUrl = "https://fronkongames.github.io/"
+    copyrightUrl = "https://github.com/Lednerb"
     creditsText = "Bilberry Hugo Theme"
     creditsUrl = "https://github.com/Lednerb/bilberry-hugo-theme"
 
@@ -163,6 +166,10 @@ disqusShortname = ""
 [Languages]
   [Languages.en]
     weight = 1
+  [Languages.de]
+    weight = 2
+    title = "Mein cooler neuer Blog"
+    subtitle = "Hallo Welt! Dies ist der epischste Untertitel aller Zeiten."
 
 # don't change anything below
 [taxonomies]
