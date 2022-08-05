@@ -1,4 +1,4 @@
-title = "Dawn Of The Cards"
+title = "A blog about the development of a card game with zombies"
 baseURL = "https://fronkongames.github.io/Dawn-Of-The-Cards/"
 
 # Option 2: cloning/copying the theme files
@@ -26,8 +26,8 @@ disqusShortname = ""
 
   # Description and meta data for the search engines
   author = "Martin Bustos"
-  description = "Devblog of the in-development game 'Dawn Of The Cards'."
-  keywords = "devblog,gamedev,gamedevelopment,indiedev,unity,unity3d,roguelike,deckbuilding,zombie,zombies,dawn,cards"
+  description = "A devblog about the development of 'Dawn Of The Cards'."
+  keywords = "devblog,blog,gamedev,gamedevelopment,indiedev,unity,unity3d,roguelike,deckbuilding,zombie,zombies,dawn,cards"
 
   # How many articles should be displayed at once?
   paginate = 7
@@ -77,7 +77,7 @@ disqusShortname = ""
 
   # Header configuration
     # your subtitle if you want to use any
-    subtitle = "A devblog of a card and zombie game"
+    subtitle = ""
 
     # if you want to use libravatar or gravatar for the header image
     avatarEmail = "fronkongames@gmail.com"
@@ -90,6 +90,8 @@ disqusShortname = ""
 
     # always display the top navigation (with pages and search) on non-mobile screens
     permanentTopNav = false
+
+    showNav = false
 
     # always display the top navigation when scrolling
     # works only with permanentTopNav = true

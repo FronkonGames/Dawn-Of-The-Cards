@@ -1,10 +1,10 @@
 {{ if and .Site.Params.permanentTopNav .Site.Params.stickyNav }}
     <header class="sticky">
 {{ else }}
-    <header>
+    <header style="background-image: url('images/header.jpg'); background-repeat: no-repeat; background-position: center; width: 100%; height: fit-content">
 {{ end }}
-    <div class="container">
-        <div class="logo">
+    <div class="container" style="height: 400px;">
+        <div class="logo" style="margin-top: 250px;">
             <a href="{{ .Site.BaseURL | relLangURL }}" class="logo">
                 {{ if and (isset .Site.Params "customimage") (ne .Site.Params.customImage "") }}
                     <img src="{{ .Site.Params.customImage | relURL }}" alt="">
@@ -21,10 +21,11 @@
                 <span class="overlay"><i class="fa {{ .Site.Params.overlayIcon | default "fa-home" }}"></i></span>
             </a>
         </div>
+
         <div class="titles">
-            <h3 class="title">
+            <h3 class="title" style="color:#202020; font-weight:800; margin-top: 250px;">
                 <a href="{{ .Site.BaseURL | relLangURL }}">
-                    {{ .Site.Title | default "My cool new blog" }}
+                    {{ .Site.Title | default "" }}
                 </a>
             </h3>
 
@@ -46,6 +47,8 @@
             </div>
         {{ end }}
 
+        {{ if .Site.Params.showNav }}
+
         {{ if .Site.Params.permanentTopNav }}
             <div class="toggler permanentTopNav">
         {{ else }}
@@ -53,5 +56,6 @@
         {{ end }}
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </div>
+        {{ end }}
     </div>
 </header>
