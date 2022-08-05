@@ -21,7 +21,7 @@
                 <span class="overlay"><i class="fa {{ .Site.Params.overlayIcon | default "fa-home" }}"></i></span>
             </a>
         </div>
-
+<!--
         <div class="titles">
             <h3 class="title" style="color:#202020; font-weight:800; margin-top: 250px;">
                 <a href="{{ .Site.BaseURL | relLangURL }}">
@@ -33,7 +33,7 @@
                 <span class="subtitle">{{ . }}</span>
             {{ end }}
         </div>
-
+-->
         {{ if and (gt .Site.Languages 1) (.Site.Params.showHeaderLanguageChooser | default true) }}
             {{- $language := .Language -}}
             <div class="languages">
