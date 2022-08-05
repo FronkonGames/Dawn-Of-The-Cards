@@ -1,7 +1,7 @@
 {{ if and .Site.Params.permanentTopNav .Site.Params.stickyNav }}
     <header class="sticky">
 {{ else }}
-    <header style="background-image: url('images/header.jpg'); background-repeat: no-repeat; background-position: center; width: 100%; height: fit-content">
+    <header style="background-image: url('{{"/images/header.jpg" | relURL }}'); background-repeat: no-repeat; background-position: center; width: 100%; height: fit-content">
 {{ end }}
     <div class="container" style="height: 400px;">
         <div class="logo" style="margin-top: 250px;">
