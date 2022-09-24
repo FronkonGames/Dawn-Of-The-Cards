@@ -48,4 +48,12 @@ And to give it a little thickness the modifier '**Solidify**'.
 
 ![Card solidify](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card_solidify.jpg "Card solidify")
 
+Now I applied all the transformations, so that the scale of the final geometry is 1.
+
+![Transforms](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/transform.jpg "Transforms")
+
+And the modifiers.
+
+![Apply](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/apply.jpg "Apply")
+
 Until next time... **stay gamedev, stay awesome!**
