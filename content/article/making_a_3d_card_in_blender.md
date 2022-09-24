@@ -40,4 +40,12 @@ To get that _aspect ratio_, with the plane selected, press '**S**' and then '**X
 
 ![Plane 1.42](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/plane_07.jpg "Plane 1.42")
 
+To round corners use the '**Bevel**' modifier.
+
+![Card bevel](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card_bevel.jpg "Card bevel")
+
+And to give it a little thickness the modifier '**Solidify**'.
+
+![Card solidify](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card_solidify.jpg "Card solidify")
+
 Until next time... **stay gamedev, stay awesome!**
