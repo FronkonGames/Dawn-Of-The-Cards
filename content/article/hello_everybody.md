@@ -11,6 +11,8 @@ categories: false
 tags: false
 ---
 
+![Promo](/Dawn-Of-The-Cards/images/hello_everybody/promo.png "Promo")
+
 This is a devblog about an indie game of **cards** and **zombies**!
 
 <!--more-->
@@ -19,7 +21,7 @@ Hi I'm **Martin Bustos** and I've been developing games for more than two decade
 
 I recently decided to leave the corporate environment and dedicate myself to making games that I feel like making and playing! Here I will be recording the progress of my first game as an indie developer: '**Dawn Of The Cards**', a card and zombie game.
 
-![Game:Work](/Dawn-Of-The-Cards/images/gamework_logo.png "Game:Work")
+![Game:Work](/Dawn-Of-The-Cards/images/hello_everybody/gamework_logo.png "Game:Work")
 
 The game engine will be [Unity](https://unity.com/) and I will build a modular framework to use it in future projects. This framework, which I've called '**Game:Work**', is available on my [GitHub](https://github.com/FronkonGames) under [MIT License](https://github.com/FronkonGames/GameWork-Core/blob/main/LICENSE.md).
 
