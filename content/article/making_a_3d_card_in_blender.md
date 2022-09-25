@@ -28,7 +28,7 @@ To make it easier to handle, I set the top camera by pressing '**7**' on the num
 
 ![3D plane](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/plane.jpg "3D plane")
 
-There is no standard size for a letter. A Bridge card measures 57.15 x 88.9 mm, while a Poker card measures 62 x 88 mm.
+There is no standard size for a card. A Bridge card measures 57.15 x 88.9 mm, while a Poker card measures 62 x 88 mm.
 This size is known as [B8 in ISO 216](https://formaty.info/en/B8/). Since it is the best known, it is the size I will use.
 
 ![B8 ISO 216](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/b8.jpg "B8 ISO 216")
@@ -55,5 +55,18 @@ Now I applied all the transformations, so that the scale of the final geometry i
 And the modifiers.
 
 ![Apply](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/apply.jpg "Apply")
+
+It was time for the materials. But first I created some UV coordinates in the '**UV Editing**' tab and selecting a cube projection.
+a cube projection. You can adjust the coordinates by hand using the window on the left.
+
+![UV](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/uv.jpg "UV")
+
+In the '**Shading**' tab, I created three materials: 'FrontFace', 'BackFace' and 'Border'. I selected the front face and the 'FrontFace
+the 'FrontFace' material, and clicked the '**Assign**' button to associate them. With '**CONTROL + 7**' I switched to the back view and performed a similar operation.
+similar operation. To assign the border material, select the two faces and invert the selection.
+
+![Assign](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/assign.jpg "Assign")
+
+Now it was only left to export to FBX to the Unity project. [Here you have the Blender scene](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend).
 
 Until next time... **stay gamedev, stay awesome!**
