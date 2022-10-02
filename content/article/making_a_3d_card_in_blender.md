@@ -17,9 +17,9 @@ The first thing a card game needs is... cards.
 
 <!--more-->
 
-And why in 3D? It would be _easier_ to do it in 2D, but to have more options in terms of effects and also to differentiate myself from the rest I decided that my card game would be 3D.
+And why in 3D? It would be _easier_ to do it in 2D, but to have more options in terms of effects and also to differentiate from the rest I decided that my card game would be 3D.
 
-For that I was going to need a 3D editor, and in my modest opinion [Blender](https://www.blender.org/) is unbeatable in quality / price.
+I was going to need a 3D editor, and in my modest opinion [Blender](https://www.blender.org/) is unbeatable in quality / price.
 Especially if you take into account that it is free ;).
 
 ![Blender](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/blender.jpg "Blender")
@@ -37,7 +37,7 @@ This size is known as [B8 in ISO 216](https://formaty.info/en/B8/). Since it is 
 However, I am not really interested in the size itself, but in the ratio between width and height or _aspect ratio_. In the case
 case of a Poker card is **1.42** (88 / 62).
 
-To get that _aspect ratio_, with the plane selected, press '**S**' and then '**X**', and typing '**0.7**' (1 / 1.42) will get the _aspect ratio_ you are looking for.
+To achieve that _aspect ratio_, with the plane selected, press '**S**' and then '**X**', and typing '**0.7**' (1 / 1.42) will get the _aspect ratio_ I'm looking for.
 
 ![Plane 1.42](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/plane_07.jpg "Plane 1.42")
 
@@ -57,8 +57,9 @@ And the modifiers.
 
 ![Apply](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/apply.jpg "Apply")
 
-It was time for the materials. But first I created some UV coordinates in the '**UV Editing**' tab and selecting a cube projection.
-a cube projection. You can adjust the coordinates by hand using the window on the left.
+It was time for the materials. But first I created some UV coordinates in the '**UV Editing**' tab and selecting a _cube projection_.
+As its name indicates, this tool creates the coordinates by projecting a cube on the model.
+It may not be the best option for rounded edges, but it is the easiest one. You can adjust the coordinates by hand using the window on the left.
 
 ![UV](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/uv.jpg "UV")
 
@@ -68,6 +69,11 @@ similar operation. To assign the border material, select the two faces and inver
 
 ![Assign](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/assign.jpg "Assign")
 
-Now it was only left to export to FBX to the Unity project. [Here you have the Blender scene](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend).
+Now it was only left to export to FBX to the Unity project. The only change I made in the export options was in 'Apply Scalings', which I set to 'FBX Units Scale' so that in Unity
+would export the scale correctly.
+
+![Export](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/export.jpg "Export")
+
+[Here you have the Blender scene](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend).
 
 Until next time... **stay gamedev, stay awesome!**
