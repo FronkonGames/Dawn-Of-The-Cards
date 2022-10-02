@@ -146,7 +146,8 @@ Shader "Card/Back Side"
 {
   Properties
   {
-    // [MainTexture] allow Material.mainTexture to use the correct properties.
+    // [MainTexture] allow Material.mainTexture to use
+    // the correct properties.
     [MainTexture] _BaseMap("Image (RGB)", 2D) = "white" {}
     
     _FrameTex("Frame (RGBA)", 2D) = "white" {}
@@ -178,7 +179,8 @@ Shader "Card/Back Side"
         float2 uv       : TEXCOORD0; // Material texture UVs.
       };
 
-      // Defines the Frame texture. _BaseMap is already defined in SurfaceInput.hlsl
+      // Defines the Frame texture. _BaseMap is already defined
+      // in SurfaceInput.hlsl
       TEXTURE2D(_FrameTex);
       SAMPLER(sampler_FrameTex);
 
@@ -205,7 +207,8 @@ Shader "Card/Back Side"
         const half4 image = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
         const half4 frame = SAMPLE_TEXTURE2D(_FrameTex, sampler_FrameTex, input.uv) * _FrameColor;
 
-        // Interpolates between image and frame according to the transparency of the frame.
+        // Interpolates between image and frame according
+        // to the transparency of the frame.
         half4 pixel = lerp(image, frame, frame.a);
 
         return pixel;
@@ -217,7 +220,7 @@ Shader "Card/Back Side"
 ```
 
 >
-> TODO
+> The rest of the post coming soon! 🙏
 >
 
 Until next time... **stay gamedev, stay awesome!**
