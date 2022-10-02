@@ -33,20 +33,23 @@ The simplest shader of the three is the one that is in charge of drawing the bor
 ```c#
 Shader "Card/Border"
 {
-  // Properties are options set per material, exposed by the material inspector.
+  // Properties are options set per material,
+  // exposed by the material inspector.
   Properties
   {
     [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
   }
 
-  // Subshaders allow for different behaviour and options for different pipelines and platforms.
+  // Subshaders allow for different behaviour and options for
+  // different pipelines and platforms.
   SubShader
   {
     // These tags are shared by all passes in this sub shader.
     Tags { "RenderType" = "Opaque" "Queue" = "Geometry" "RenderPipeline" = "UniversalPipeline" }
 
-    // Shaders can have several passes which are used to render different data about the material
-    // Each pass has it's own vertex and fragment function and shader variant keywords.
+    // Shaders can have several passes which are used to render
+    // different data about the material. Each pass has it's own
+    // vertex and fragment function and shader variant keywords.
     Pass
     {
       // Begin HLSL code
@@ -59,33 +62,38 @@ Shader "Card/Border"
       // Include basics URP functions.
       #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-      // This attributes struct receives data about the mesh we're currently rendering.
-      // Data is automatically placed in fields according to their semantic.
+      // This attributes struct receives data about the mesh we're
+      // currently rendering. Data is automatically placed in
+      // fields according to their semantic.
       struct Attributes
       {
         float4 vertex : POSITION;  // Position in object space.
       };
 
-      // This struct is output by the vertex function and input to the fragment function.
-      // Note that fields will be transformed by the intermediary rasterization stage.
+      // This struct is output by the vertex function and input to
+      // the fragment function. Note that fields will be
+      // transformed by the intermediary rasterization stage.
       struct Varyings
       {
-        // This value should contain the position in clip space (which is similar to a position on screen)
-        // when output from the vertex function. It will be transformed into pixel position of the current
-        // fragment on the screen when read from the fragment function.      
+        // This value should contain the position in clip space (which
+        // is similar to a position on screen) when output from the
+        // vertex function. It will be transformed into pixel position
+        // of the current fragment on the screen when read from
+        // the fragment function.      
         float4 position : SV_POSITION;
       };
 
       half4 _BaseColor;
 
-      // The vertex function. This runs for each vertex on the mesh.
-      // It must output the position on the screen each vertex should appear at,
-      // as well as any data the fragment function will need.
+      // The vertex function. This runs for each vertex on the mesh. It
+      // must output the position on the screen each vertex should
+      // appear at, as well as any data the fragment function will need.
       Varyings vert(Attributes input)
       {
         Varyings output = (Varyings)0;
         
-        // These helper functions transform object space values into world and clip space.        
+        // These helper functions transform object space values into
+        // world and clip space.        
         const VertexPositionInputs positionInputs = GetVertexPositionInputs(input.vertex.xyz);
         
         // Pass position data to the fragment function.
@@ -94,8 +102,9 @@ Shader "Card/Border"
         return output;
       }
 
-      // The fragment function. This runs once per fragment, which you can think of as a pixel on the screen
-      // It must output the final color of this pixel.
+      // The fragment function. This runs once per fragment, which
+      // you can think of as a pixel on the screen. It must output
+      // the final color of this pixel.
       half4 frag(const Varyings input) : SV_Target
       {
         return _BaseColor;
@@ -119,6 +128,16 @@ The texture of the frame must have a transparent zone (alpha equal to 0) that al
 | Background | Frame  |
 |   :----:   | :----: |
 | ![Background](/Dawn-Of-The-Cards/images/rendering_a_card/backface.png "Background") | ![Frame](/Dawn-Of-The-Cards/images/rendering_a_card/backframe.png "Frame")  |
+
+To mix, or more precisely _interpolate_, both pixels I will use the function [lerp(x, y, s)](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-lerp), which returns _x_ if _s_ is 0, _y_ if _s_ is 1 and a linearly interpolated value between _x_ and _y_ if the value of _s_ is between 0 and 1.
+
+```c#
+half3 pixel = lerp(image, frame, frame.a);
+```
+
+In this way if the transparency of the frame is 0, you will see the image, otherwise you will see the frame.
+
+![Back](/Dawn-Of-The-Cards/images/rendering_a_card/back.jpg "Back")
 
 > TODO
 
