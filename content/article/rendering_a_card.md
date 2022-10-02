@@ -21,9 +21,9 @@ How to make a custom shader to render cards using 'Universal RP' from Unity.
 
 As we saw in the [previous post](https://fronkongames.github.io/Dawn-Of-The-Cards/article/making_a_3d_card_in_blender/), each card has three materials:
 
-* FrontFace: the face where all the important information and the image representing the card will be.
-* BackFace: the face that will be seen when the card is face down.
-* Border: the border material of the card.
+* **FrontFace**: the face where all the important information and the image representing the card will be.
+* **BackFace**: the face that will be seen when the card is face down.
+* **Border**: the border material of the card.
 
 To be able to adjust to the maximum each one of these materials, I will create three custom shaders using the pipeline that the game will use:
 '[Universal RP](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.1/manual/index.html)', specifically version 12.1.
@@ -104,7 +104,7 @@ Shader "Card/Border"
     }
   }
 }
-``
+```
 
 To check that everything goes well, I will create three materials with the above shader, each one of a color and assign it to each
 material on the card.
