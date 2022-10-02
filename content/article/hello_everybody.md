@@ -1,5 +1,5 @@
 ---
-title: "Hello everybody! 🧟"
+title: "Hello Everybody! 🧟"
 date: 2022-05-08
 
 categories: ['Devblog']

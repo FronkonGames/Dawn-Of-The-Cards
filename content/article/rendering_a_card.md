@@ -1,6 +1,6 @@
 ﻿---
 title: "Rendering A Card In URP 🖌️"
-date: 2022-09-24
+date: 2022-10-02
 
 categories: ['Devblog']
 tags: ['Devblog']
