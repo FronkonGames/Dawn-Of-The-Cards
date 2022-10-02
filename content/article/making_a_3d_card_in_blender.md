@@ -1,5 +1,5 @@
 ---
-title: "Making a 3D card in Blender 🃏"
+title: "Making A 3D Card In Blender 🃏"
 date: 2022-09-24
 
 categories: ['Devblog']
