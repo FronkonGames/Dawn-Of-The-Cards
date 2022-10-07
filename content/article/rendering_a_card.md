@@ -225,6 +225,10 @@ The shader for the front part of the card, in a first version, is similar to the
 * **Image**: the image that represents the card.
 * **Frame**: the border of the card.
 
+| Background | Image  | Frame  |
+|   :----:   | :----: |
+| ![Background](/Dawn-Of-The-Cards/images/rendering_a_card/background.png "Background") | ![Image](/Dawn-Of-The-Cards/images/rendering_a_card/image.png "Image") | ![Frame](/Dawn-Of-The-Cards/images/rendering_a_card/backframe.png "Frame")  |
+
 In addition to defining the new texture, in the 'frag' function you will have to add one more '**lerp**':
 
 ```c#
