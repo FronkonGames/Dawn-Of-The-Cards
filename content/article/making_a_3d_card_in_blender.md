@@ -77,11 +77,15 @@ To assign the border material, select the two faces and invert the selection.
 
 ![Assign](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/assign.jpg "Assign")
 
-Now it was only left to export to FBX to the Unity project. The only change I made in the export options was in '**Apply Scalings**', which I set to '**FBX Units Scale**' so that in Unity
+Now it was only left to export to FBX to the Unity project.
+
+The only change I made in the export options was in '**Apply Scalings**', which I set to '**FBX Units Scale**' so that in Unity
 would export the scale correctly.
 
 ![Export](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/export.jpg "Export")
 
-[📥 Blender Scene 📥](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend).
-
 Until next time... **stay gamedev, stay awesome!**
+
+<p align=center>
+[📥 DOWNLOAD BLENDER SCENE 📥](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend)
+</p>

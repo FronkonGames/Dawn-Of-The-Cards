@@ -37,6 +37,7 @@ Shader "Card/Border"
   // exposed by the material inspector.
   Properties
   {
+    // [MainColor] allow Material.color to use the correct properties.
     [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
   }
 
@@ -122,7 +123,7 @@ material on the card.
 
 It looks like everything is correct.
 
-The next shader in difficulty would be the one for the back face. In it I want to mix two textures, one for the background and another one as a frame.
+The next shader in difficulty would be the one for the back face. In it I want to mix two textures, one for the background image and another one as a frame.
 The texture of the frame must have a transparent zone (alpha equal to 0) that allows to see the background texture.
 
 | Background | Frame  |
@@ -135,7 +136,7 @@ To mix, or more precisely _interpolate_, both pixels I will use the function [le
 half3 pixel = lerp(image, frame, frame.a);
 ```
 
-In this way if the transparency of the frame is 0, you will see the image, otherwise you will see the frame.
+In this way if the transparency of the frame is 0, you will see the image, otherwise you will see the frame. And if it is something in between, we will see a mix between the two images.
 
 ![Back](/Dawn-Of-The-Cards/images/rendering_a_card/back.jpg "Back")
 
@@ -179,15 +180,14 @@ Shader "Card/Back Side"
         float2 uv       : TEXCOORD0; // Material texture UVs.
       };
 
-      // Defines the Frame texture. _BaseMap is already defined
-      // in SurfaceInput.hlsl
-      TEXTURE2D(_FrameTex);
-      SAMPLER(sampler_FrameTex);
-
       // This is automatically set by Unity.
       // Used in TRANSFORM_TEX to apply UV tiling.
       float4 _BaseMap_ST;
 
+      // Defines the Frame texture, sampler and color.
+      // _BaseMap is already defined in SurfaceInput.hlsl.
+      TEXTURE2D(_FrameTex);
+      SAMPLER(sampler_FrameTex);
       float4 _FrameColor;
       
       Varyings vert(Attributes input)
@@ -219,8 +219,37 @@ Shader "Card/Back Side"
 }
 ```
 
->
-> The rest of the post coming soon! 🙏
->
+El shader para la parte frontal de la carta, en una primera version, es similar al anterior pero con otra capa mas. Consta de tres capas, que de mas a menos profundidad son:
+
+* **Background**: el fondo de la carta.
+* **Image**: la imagen que representa la carta.
+* **Frame**: el borde de la carta.
+
+Ademas de definir la nueva textura, en la función 'frag' abrá que añadir un '**lerp**' mas:
+
+```c#
+  // Sample the textures.
+  const half4 image = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+  const half4 background = SAMPLE_TEXTURE2D(_BackgroundTex, sampler_BackgroundTex, input.uv);
+  const half4 frame = SAMPLE_TEXTURE2D(_FrameTex, sampler_FrameTex, input.uv);
+
+  // Interpolates between image and background according to
+  // the transparency of the frame.
+  half4 pixel = lerp(background, image, image.a);
+
+  // And the result is interpolated with the frame
+  // transparency.
+  pixel = lerp(pixel, frame * _FrameColor, frame.a);
+
+  return pixel;
+```
+
+And why separate the background from the image when they could be a single texture and save a texture fetch? you might be asking yourself.
+And you would be right, since a texture fetch (the '**SAMPLE_TEXTURE2D**' macro) is one of the most expensive operations in shaders.
+
+The answer is that we can add effects **behind** the image representing the card and **in front** of it.
+
+The first effect we are going to see, and the one that will close this post, is the transformation of the UV coordinates.
+That is, the displacement, rotation and scaling of these coordinates.
 
 Until next time... **stay gamedev, stay awesome!**
