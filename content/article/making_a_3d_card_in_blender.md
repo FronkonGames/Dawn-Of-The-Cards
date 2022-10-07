@@ -86,6 +86,4 @@ would export the scale correctly.
 
 Until next time... **stay gamedev, stay awesome!**
 
-<p align=center>
-[📥 DOWNLOAD BLENDER SCENE 📥](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend)
-</p>
+> [📥 DOWNLOAD BLENDER SCENE 📥](/Dawn-Of-The-Cards/images/making_a_3d_card_in_blender/card.blend)

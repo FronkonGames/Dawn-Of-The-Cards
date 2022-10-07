@@ -244,6 +244,8 @@ In addition to defining the new texture, in the 'frag' function you will have to
   return pixel;
 ```
 
+![Front](/Dawn-Of-The-Cards/images/rendering_a_card/front.jpg "Front")
+
 And why separate the background from the image when they could be a single texture and save a texture fetch? you might be asking yourself.
 And you would be right, since a texture fetch (the '**SAMPLE_TEXTURE2D**' macro) is one of the most expensive operations in shaders.
 
