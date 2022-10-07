@@ -219,13 +219,13 @@ Shader "Card/Back Side"
 }
 ```
 
-El shader para la parte frontal de la carta, en una primera version, es similar al anterior pero con otra capa mas. Consta de tres capas, que de mas a menos profundidad son:
+The shader for the front part of the card, in a first version, is similar to the previous one but with another layer. It consists of three layers, that from more to less depth are:
 
-* **Background**: el fondo de la carta.
-* **Image**: la imagen que representa la carta.
-* **Frame**: el borde de la carta.
+* **Background**: the background of the card.
+* **Image**: the image that represents the card.
+* **Frame**: the border of the card.
 
-Ademas de definir la nueva textura, en la función 'frag' abrá que añadir un '**lerp**' mas:
+In addition to defining the new texture, in the 'frag' function you will have to add one more '**lerp**':
 
 ```c#
   // Sample the textures.
