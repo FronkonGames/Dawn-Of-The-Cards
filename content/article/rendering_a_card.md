@@ -265,4 +265,9 @@ You can do a simple test by creating a cube in a scene and assigning a material 
 
 ![Offset UV](/Dawn-Of-The-Cards/images/rendering_a_card/uv.gif "Offset UV")
 
+To create a rain effect I will use a rain texture that is '**seamless**', that is, that you don't notice a cut when you move it. It is important that you use a texture format that allows the transparency channel to have more than one bit of color (not like the PNG format). In my case I used a TGA.
+
+![Rain](/Dawn-Of-The-Cards/images/rendering_a_card/rain.png "Rain")
+
+
 Until next time... **stay gamedev, stay awesome!**
