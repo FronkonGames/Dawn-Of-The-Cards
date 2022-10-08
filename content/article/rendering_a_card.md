@@ -243,7 +243,7 @@ In addition to defining the new texture, in the 'frag' function you will have to
 
   // And the result is interpolated with the frame
   // transparency.
-  pixel = lerp(pixel, frame * _FrameColor, frame.a);
+  pixel = lerp(pixel, frame, frame.a);
 
   return pixel;
 ```
@@ -255,7 +255,14 @@ And you would be right, since a texture fetch (the '**SAMPLE_TEXTURE2D**' macro)
 
 The answer is that we can add effects **behind** the image representing the card and **in front** of it.
 
-The first effect we are going to see, and the one that will close this post, is the transformation of the UV coordinates.
-That is, the displacement, rotation and scaling of these coordinates.
+The first effect we are going to see is the transformation of the UV coordinates. In particular, the displacement of these, with which we will achieve
+the rain effect and the fog effect that you saw at the beginning of this post.
+
+These effects depend on the type of UV mapping your geometry uses. In my case, as we saw in the [previous post](https://fronkongames.github.io/Dawn-Of-The-Cards/article/making_a_3d_card_in_blender/),
+I use a cubic projection so if I modify one axis of the coordinates I know that the texture will be displaced on one axis.
+
+You can do a simple test by creating a cube in a scene and assigning a material to it. You can modify the UV coordinates of the material by changing its '**Offset**'.
+
+![Offset UV](/Dawn-Of-The-Cards/images/rendering_a_card/uv.gif "Offset UV")
 
 Until next time... **stay gamedev, stay awesome!**
