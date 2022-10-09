@@ -305,12 +305,20 @@ Finally it remains to add something fundamental, text. For this we will use [Tex
 
 ![Package](/Dawn-Of-The-Cards/images/rendering_a_card/package.jpg "Package")
 
-Añadí un hijo y le añadi un texto 3D.
+I added a child and added a 3D text.
 
 ![TMP](/Dawn-Of-The-Cards/images/rendering_a_card/package.jpg "TMP")
 
-Y ajuste la coordenada Z para que estubiera ligeranmente por delante de la carta.
+And adjust the Z coordinate to be slightly ahead of the card.
 
 ![Text](/Dawn-Of-The-Cards/images/rendering_a_card/text.jpg "Text")
+
+That's all for now. In next posts I will add other effects that can be useful for a card game. In the meantime you can add some small improvements like:
+
+* One color for each layer to tint it. You would only have to multiply the result of **SAMPLE_TEXTURE2D** by that color.
+* Scaling. Simply multiplying by a scalar the UV coordinate.
+* Angular velocity, to rotate the layers of the effects.
+* Use different [blending functions](https://photoshoptrainingchannel.com/blending-modes-explained/) for the effect layers. In this post I have only used a simple way to blend the layers, but there are many blending functions that can give interesting results.
+* And... can you think of anything else?
 
 Until next time... **stay gamedev, stay awesome!**
