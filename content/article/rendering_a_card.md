@@ -269,6 +269,8 @@ I'm going to add two more textures to the shader. One between '**background**' a
 
 ![Layers](/Dawn-Of-The-Cards/images/rendering_a_card/layers.jpg "Layers")
 
+![Layers]({{site.baseurl}}/images/rendering_a_card/layers.jpg "Layers")
+
 It will be in these two new textures where I will apply a displacement in their UV coordinates. We only have to modify the UV coordinates in the macro **SAMPLE_TEXTURE2D**. If '**_Offset**' were a vector with the offset, it would be applied like this:
 
 ```c#
@@ -300,5 +302,9 @@ The final effect would look something like this:
 By changing the texture to a fog texture, and scrolling on the horizontal axis we can get a fog effect like this:
 
 ![Herrick](/Dawn-Of-The-Cards/images/rendering_a_card/herrick.gif "Herrick")
+
+Finally it remains to add something fundamental, text. For this we will use [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html), since it provides much better quality and options than the text offered by Unity. To install it just add it using the 'Package Manager'.
+
+![Package](/Dawn-Of-The-Cards/images/rendering_a_card/package.jpg "Package")
 
 Until next time... **stay gamedev, stay awesome!**
