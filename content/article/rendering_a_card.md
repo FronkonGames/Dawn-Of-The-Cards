@@ -265,9 +265,36 @@ You can do a simple test by creating a cube in a scene and assigning a material 
 
 ![Offset UV](/Dawn-Of-The-Cards/images/rendering_a_card/uv.gif "Offset UV")
 
+Voy a añadir otras dos texturas al shader. Una entre '**background**' e '**image**' y otra entre '**image**' y '**frame**'. En total tendriamos estas capas:
+
+![Layers](/Dawn-Of-The-Cards/images/rendering_a_card/layers.jpg "Layers")
+
+It will be in these two new textures where I will apply a displacement in their UV coordinates. We only have to modify the UV coordinates in the macro **SAMPLE_TEXTURE2D**. If '**_Offset**' were a vector with the offset, it would be applied like this:
+
+```c#
+float2 newUV = input.uv + _Offset;
+
+const half4 image = SAMPLE_TEXTURE2D(_BackgroundFXTex, sampler_BackgroundFXTex, newUV);
+```
+
+But instead of specifying a displacement, I will use a linear velocity vector. I will calculate the final displacement by multiplying this velocity by the time. The time is provided by Unity in the vector '[**_Time**](https://docs.unity3d.com/Manual/SL-UnityShaderVariables.html)', its coordinate __y__ being the unscaled time. If '**_ScrollVelocity**' were a vector with the linear velocity, it would be applied like this:
+
+```c#
+float2 newUV = input.uv + frac(_ScrollVelocity * _Time.y);
+
+const half4 image = SAMPLE_TEXTURE2D(_BackgroundFXTex, sampler_BackgroundFXTex, newUV);
+```
+
+As the UV coordinates are between 0 and 1, with the function '[**frac**](https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-frac)' we will use only the decimal part to add it to these coordinates.
+
+By using two effect layers, one behind the image and one in front of it, we can give each layer a different speed to simulate depth by making the farthest layer slower.
+
 To create a rain effect I will use a rain texture that is '**seamless**', that is, that you don't notice a cut when you move it. It is important that you use a texture format that allows the transparency channel to have more than one bit of color (not like the PNG format). In my case I used a TGA.
 
 ![Rain](/Dawn-Of-The-Cards/images/rendering_a_card/rain.png "Rain")
 
+The final effect would look something like this:
+
+![Valeria](/Dawn-Of-The-Cards/images/rendering_a_card/valeria.gif "Valeria")
 
 Until next time... **stay gamedev, stay awesome!**
