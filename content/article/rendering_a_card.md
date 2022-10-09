@@ -265,7 +265,7 @@ You can do a simple test by creating a cube in a scene and assigning a material 
 
 ![Offset UV](/Dawn-Of-The-Cards/images/rendering_a_card/uv.gif "Offset UV")
 
-Voy a añadir otras dos texturas al shader. Una entre '**background**' e '**image**' y otra entre '**image**' y '**frame**'. En total tendriamos estas capas:
+I'm going to add two more textures to the shader. One between '**background**' and '**image**' and another between '**image**' and '**frame**'. In total we would have these layers:
 
 ![Layers](/Dawn-Of-The-Cards/images/rendering_a_card/layers.jpg "Layers")
 
@@ -296,5 +296,9 @@ To create a rain effect I will use a rain texture that is '**seamless**', that i
 The final effect would look something like this:
 
 ![Valeria](/Dawn-Of-The-Cards/images/rendering_a_card/valeria.gif "Valeria")
+
+By changing the texture to a fog texture, and scrolling on the horizontal axis we can get a fog effect like this:
+
+![Herrick](/Dawn-Of-The-Cards/images/rendering_a_card/herrick.gif "Herrick")
 
 Until next time... **stay gamedev, stay awesome!**
