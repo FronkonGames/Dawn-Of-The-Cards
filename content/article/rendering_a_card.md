@@ -313,6 +313,10 @@ And adjust the Z coordinate to be slightly ahead of the card.
 
 ![Text](/Dawn-Of-The-Cards/images/rendering_a_card/text.jpg "Text")
 
+And __voalá__!
+
+![Label](/Dawn-Of-The-Cards/images/rendering_a_card/label.jpg "Label")
+
 That's all for now. In next posts I will add other effects that can be useful for a card game. In the meantime you can add some small improvements like:
 
 * One color for each layer to tint it. You would only have to multiply the result of **SAMPLE_TEXTURE2D** by that color.
