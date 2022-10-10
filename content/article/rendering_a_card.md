@@ -307,7 +307,7 @@ Finally it remains to add something fundamental, text. For this we will use [Tex
 
 I added a child and added a 3D text.
 
-![TMP](/Dawn-Of-The-Cards/images/rendering_a_card/package.jpg "TMP")
+![TMP](/Dawn-Of-The-Cards/images/rendering_a_card/tmp.jpg "TMP")
 
 And adjust the Z coordinate to be slightly ahead of the card.
 
