@@ -322,3 +322,9 @@ That's all for now. In next posts I will add other effects that can be useful fo
 * And... can you think of anything else?
 
 Until next time... **stay gamedev, stay awesome!**
+
+> ⚠️ **In these shaders I have prioritized readability over optimization.** ⚠️
+> 
+> [📥 BACK SIDE SHADER 📥](https://gist.github.com/FronkonGames/78f2d00334b7aa8d3a3564b6c62f4fe7)
+> [📥 BORDER SHADER 📥](https://gist.github.com/FronkonGames/6b419e60eb42d81666bf35f18c59ab00)
+> [📥 FRONT SIDE SHADER 📥](https://gist.github.com/FronkonGames/c1e4c12b41612f72b84c6ed68076fb49)
