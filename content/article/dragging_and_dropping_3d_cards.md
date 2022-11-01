@@ -9,7 +9,7 @@ categories: false
 tags: false
 ---
 
-![Promo](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.png "Promo")
+![Promo](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.mp4 "Promo")
 
 Moving cards, with elegance..
 
