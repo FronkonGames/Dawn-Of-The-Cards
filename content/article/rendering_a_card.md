@@ -11,7 +11,7 @@ categories: false
 tags: false
 ---
 
-<video src='/Dawn-Of-The-Cards/images/rendering_a_card/promo.gif'/>
+![Promo](/Dawn-Of-The-Cards/images/rendering_a_card/promo.gif "Promo")
 
 How to make a custom shader to render cards using 'Universal RP' from Unity.
 

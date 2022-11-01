@@ -9,9 +9,9 @@ categories: false
 tags: false
 ---
 
-![Promo](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.mp4 "Promo")
+<video src='/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.mp4'></video>
 
-Moving cards, with elegance..
+Moving cards, with elegance.
 
 <!--more-->
 
