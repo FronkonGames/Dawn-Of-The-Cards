@@ -160,10 +160,17 @@ With these two interfaces ready we can start with the one in charge of handling 
   - If the left mouse button is pressed, the card should be moved and the **OnDrag** method should be called.
   - If it is not, the drag operation must be finished and the **OnEndDrag** method must be called.
 
+> ⚠️ **All the code in this article is designed to move the cards in the XZ plane and use the Y axis for the height. If you use different axes you will have to modify the code.** ⚠️
+
 All this will have to be done in each frame, so it will be done inside the function '**Update**' of '**DragAndDropManager**'. We will use these variables:
 
 ```c#
-// Object to which we are doing a drag operation or null if no drag operation currently exists.
+// Height at which we want the chart to be in a drag operation.
+[SerializeField, Range(0.0f, 10.0f)]
+private float height = 1.0f;
+
+// Object to which we are doing a drag operation
+// or null if no drag operation currently exists.
 private IDrag currentDrag;
 
 // To know the position of the drag object.
@@ -205,12 +212,15 @@ if (Input.GetMouseButtonDown(0) == true)
     
     // Hide the mouse icon.
     Cursor.visible = false;
-    // And we lock the movements to the window frame, so we can't move objects out of the camera's view.
+    // And we lock the movements to the window frame,
+    // so we can't move objects out of the camera's view.
     Cursor.lockState = CursorLockMode.Confined;
 
     // The drag operation begins.
     currentDrag.Dragging = true;
-    currentDrag.OnBeginDrag(new Vector3(raycastHits[0].point.x, raycastHits[0].point.y + height, raycastHits[0].point.z));
+    currentDrag.OnBeginDrag(new Vector3(raycastHits[0].point.x,
+                                        raycastHits[0].point.y + height,
+                                        raycastHits[0].point.z));
   }
 }
 ```
