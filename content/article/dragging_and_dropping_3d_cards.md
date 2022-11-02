@@ -114,12 +114,14 @@ public interface IDrag
 
   /// <summary>A drag is being made. </summary>
   /// <param name="deltaPosition"> Mouse offset position. </param>
-  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  /// <param name="droppable">
+  /// Object on which a drop may be made, or null. </param>
   public void OnDrag(Vector3 deltaPosition, IDrop droppable);
 
   /// <summary> The drag operation is completed. </summary>
   /// <param name="position">Mouse position.</param>
-  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  /// <param name="droppable">
+  /// Object on which a drop may be made, or null. </param>
   public void OnEndDrag(Vector3 position, IDrop droppable);
 }
 ```
@@ -145,5 +147,18 @@ public interface IDrop
   public void OnDrop(IDrag drag);
 }
 ```
+
+As you can see, it is **IDrop** that will authorize an **IDrag**, with its **AcceptDrop** method, whether or not to accept a drop operation to be executed on it.
+
+With these two interfaces ready we can start with the one in charge of handling the drag and drop operations of our cards. We can call it '**DragAndDropManager**'. An operation of
+A drag & drop operation can be divided into:
+
+- There is no drag operation at present.
+  - Cards must be detected under the mouse pointer.
+    - If a card is detected and the left mouse button is pressed, a drag operation is started and the **OnBeginDrag** method must be called.
+    - If there is a detected card and no button is being pressed, the **OnPointerEnter** and **OnPointerExit** methods of the detected card are called.
+- A drag operation is in progress.
+  - If the left mouse button is pressed, the card should be moved and the **OnDrag** method should be called.
+  - If it is not, the drag operation must be finished and the **OnEndDrag** method must be called.
 
 **🚧 WORK IN PROGRESS 🚧**
