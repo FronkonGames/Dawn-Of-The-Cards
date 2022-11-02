@@ -43,9 +43,7 @@ The code to detect the cards would look something like this:
   // Ray created from the camera to the projection of the mouse coordinates on the scene.
   private Ray mouseRay;
 
-  /// <summary>
-  /// Returns the Transfrom of the object closest to the origin of the beam.
-  /// </summary>
+  /// <summary> Returns the Transfrom of the object closest to the origin of the beam. </summary>
   /// <returns>Transform or null if there is no impact.</returns>
   private Transform MouseRaycast()
   {
