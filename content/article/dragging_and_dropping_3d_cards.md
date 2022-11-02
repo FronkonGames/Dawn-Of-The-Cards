@@ -86,5 +86,64 @@ The second thing to do is to assign the '__layer__' we have selected to the char
 
 ![Ray hit](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/rayhit.gif "Ray Hit")
 
+Now we can start moving our cards. First we are going to define two interfaces, the first one is **IDrag**, for objects that you can drag.
+
+```c#
+/// <summary>
+/// Draggable object.
+/// </summary>
+public interface IDrag
+{
+  /// <summary> Can it be draggable? </summary>
+  public bool IsDraggable { get; }
+
+  /// <summary> A Drag operation is currently underway. </summary>
+  public bool Dragging { get; set; }
+  
+  /// <summary> Mouse enters the object. </summary>
+  /// <param name="position">Mouse position.</param>
+  public void OnPointerEnter(Vector3 position);
+  
+  /// <summary> Mouse exits object. </summary>
+  /// <param name="position">Mouse position.</param>
+  public void OnPointerExit(Vector3 position);
+
+  /// <summary> Drag begins. </summary>
+  /// <param name="position">Mouse position.</param>
+  public void OnBeginDrag(Vector3 position);
+
+  /// <summary>A drag is being made. </summary>
+  /// <param name="deltaPosition"> Mouse offset position. </param>
+  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  public void OnDrag(Vector3 deltaPosition, IDrop droppable);
+
+  /// <summary> The drag operation is completed. </summary>
+  /// <param name="position">Mouse position.</param>
+  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  public void OnEndDrag(Vector3 position, IDrop droppable);
+}
+```
+
+And the second is **IDrop**, for objects that can accept IDrag objects.
+
+```c#
+/// <summary>
+/// Accept draggable objects.
+/// </summary>
+public interface IDrop
+{
+  /// <summary> Is it droppable? </summary>
+  public bool IsDroppable { get; }
+
+  /// <summary> Accept an IDrag? </summary>
+  /// <param name="drag">Object IDrag.</param>
+  /// <returns>Accept or not the object.</returns>
+  public bool AcceptDrop(IDrag drag);
+
+  /// <summary> Performs the drop option of an IDrag object. </summary>
+  /// <param name="drag">Object IDrag.</param>
+  public void OnDrop(IDrag drag);
+}
+```
 
 **🚧 WORK IN PROGRESS 🚧**
