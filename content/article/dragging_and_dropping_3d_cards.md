@@ -150,15 +150,69 @@ public interface IDrop
 
 As you can see, it is **IDrop** that will authorize an **IDrag**, with its **AcceptDrop** method, whether or not to accept a drop operation to be executed on it.
 
-With these two interfaces ready we can start with the one in charge of handling the drag and drop operations of our cards. We can call it '**DragAndDropManager**'. An operation of
-A drag & drop operation can be divided into:
+With these two interfaces ready we can start with the one in charge of handling the drag and drop operations of our cards. We can call it '**DragAndDropManager**' and will be a [MonoBehaviour](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html). An operation of drag & drop operation can be divided into:
 
-- There is no drag operation at present.
+1. There is no drag operation at present.
   - Cards must be detected under the mouse pointer.
     - If a card is detected and the left mouse button is pressed, a drag operation is started and the **OnBeginDrag** method must be called.
     - If there is a detected card and no button is being pressed, the **OnPointerEnter** and **OnPointerExit** methods of the detected card are called.
-- A drag operation is in progress.
+2. A drag operation is in progress.
   - If the left mouse button is pressed, the card should be moved and the **OnDrag** method should be called.
   - If it is not, the drag operation must be finished and the **OnEndDrag** method must be called.
+
+All this will have to be done in each frame, so it will be done inside the function '**Update**' of '**DragAndDropManager**'. We will use these variables:
+
+```c#
+// Object to which we are doing a drag operation or null if no drag operation currently exists.
+private IDrag currentDrag;
+
+// To know the position of the drag object.
+private Transform currentDragTransform;
+
+// To calculate the mouse offset.
+private Vector3 oldMouseWorldPosition;
+```
+
+Let's see how to detect an **IDrag**.
+
+```c#
+IDrag draggable = null;
+
+mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+Transform hit = MouseRaycast();
+if (hit != null)
+{
+  draggable = hit.GetComponent<IDrag>();
+  if (draggable is { IsDraggable: false })
+    draggable = null;
+}
+```
+
+Now there are two possibilities, that the left mouse button is pressed or not pressed. If it is pressed and there is an **IDrag** object under the mouse pointer:
+
+```c#
+// Left mouse button pressed?
+if (Input.GetMouseButtonDown(0) == true)
+{
+  // Is there an IDrag object under the mouse pointer?
+  if (draggable != null)
+  {
+    // We already have an object to start the drag operation!
+    currentDrag = draggable;
+    currentDragTransform = hit;
+    oldMouseWorldPosition = MousePositionToWorldPoint();
+    
+    // Hide the mouse icon.
+    Cursor.visible = false;
+    // And we lock the movements to the window frame, so we can't move objects out of the camera's view.
+    Cursor.lockState = CursorLockMode.Confined;
+
+    // The drag operation begins.
+    currentDrag.Dragging = true;
+    currentDrag.OnBeginDrag(new Vector3(raycastHits[0].point.x, raycastHits[0].point.y + height, raycastHits[0].point.z));
+  }
+}
+```
 
 **🚧 WORK IN PROGRESS 🚧**
