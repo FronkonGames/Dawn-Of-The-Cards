@@ -311,7 +311,8 @@ private IDrop DetectDroppable()
                                 raycastMask) > 0)
     {
       // We order the impacts by distance from the origin of the ray.
-      System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.distance));
+      System.Array.Sort(raycastHits, (x, y) =>
+        x.distance.CompareTo(y.distance));
 
       // We are only interested in the closest one.
       if (cardHits.Contains(raycastHits[0].transform) == false)
@@ -335,7 +336,7 @@ Let's see it in action:
 
 ![Card hits](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/cardhits.gif "Card Hits")
 
-Ya podemos afrontar la parte en la que manejamos una operacion de drag:
+We can now proceed to the part where we handle a drag operation:
 
 ```c#
 if (currentDrag != null)
@@ -345,26 +346,29 @@ if (currentDrag != null)
   // Is the left mouse button held down?
   if (Input.GetMouseButton(0) == true)
   {
-    // We calculate the offset of the mouse with respect to its previous position.
+    // Calculate the offset of the mouse with respect to its previous position.
     Vector3 mouseWorldPosition = MousePositionToWorldPoint();
-    Vector3 deltaPosition = (mouseWorldPosition - oldMouseWorldPosition) * dragSpeed;
-    
-    if (currentDragTransform.position.x + deltaPosition.x > playZone.x + this.transform.position.x - cardSize.x * 0.5f ||
-        currentDragTransform.position.x + deltaPosition.x < playZone.y + this.transform.position.x + cardSize.x * 0.5f)
-      deltaPosition.x = 0;
+    Vector3 offset = (mouseWorldPosition - oldMouseWorldPosition) * dragSpeed;
 
-    if (currentDragTransform.position.z + deltaPosition.z > playZone.w + this.transform.position.x - cardSize.y * 0.5f ||
-        currentDragTransform.position.z + deltaPosition.z < playZone.z + this.transform.position.x + cardSize.y * 0.5f)
-      deltaPosition.z = 0;
+    Vector3 dragPosition = currentDragTransform.position;
+    Vector3 position = this.transform.position;
+    if (dragPosition.x + offset.x > playZone.x + position.x - cardSize.x * 0.5f ||
+        dragPosition.x + offset.x < playZone.y + position.x + cardSize.x * 0.5f)
+      offset.x = 0;
+
+    if (dragPosition.z + offset.z > playZone.w + position.x - cardSize.y * 0.5f ||
+        dragPosition.z + offset.z < playZone.z + position.x + cardSize.y * 0.5f)
+      offset.z = 0;
     
     // OnDrag is executed.
-    currentDrag.OnDrag(deltaPosition, droppable);
+    currentDrag.OnDrag(offset, droppable);
 
     oldMouseWorldPosition = mouseWorldPosition;
   }
   else if (Input.GetMouseButtonUp(0) == true)
   {
-    // The left mouse button is released and the drag operation is finished.
+    // The left mouse button is released and
+    // the drag operation is finished.
     currentDrag.Dragging = false;
     currentDrag.OnEndDrag(raycastHits[0].point, droppable);
     currentDrag = null;
@@ -376,5 +380,7 @@ if (currentDrag != null)
   }  
 }
 ```
+
+We already have everything we need for our drag and drop manager! Remember that at the end of this article you will find all the files with the source code.
 
 **🚧 WORK IN PROGRESS 🚧**
