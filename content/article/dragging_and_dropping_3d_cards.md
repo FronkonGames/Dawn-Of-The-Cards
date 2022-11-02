@@ -283,20 +283,14 @@ private IDrop DetectDroppable()
   IDrop droppable = null;
 
   // The four corners of the card.
+  Vector3 position = currentDragTransform.position;
+  Vector2 halfSize = cardSize * 0.5f;
   Vector3[] cardConner =
   {
-    new(currentDragTransform.position.x + cardSize.x * 0.5f,
-        currentDragTransform.position.y,
-        currentDragTransform.position.z - cardSize.y * 0.5f),
-    new(currentDragTransform.position.x + cardSize.x * 0.5f,
-        currentDragTransform.position.y,
-        currentDragTransform.position.z + cardSize.y * 0.5f),
-    new(currentDragTransform.position.x - cardSize.x * 0.5f,
-        currentDragTransform.position.y,
-        currentDragTransform.position.z - cardSize.y * 0.5f),
-    new(currentDragTransform.position.x - cardSize.x * 0.5f,
-        currentDragTransform.position.y,
-        currentDragTransform.position.z + cardSize.y * 0.5f)
+    new(position.x + halfSize.x, position.y, position.z - halfSize.y),
+    new(position.x + halfSize.x, position.y, position.z + halfSize.y),
+    new(position.x - halfSize.x, position.y, position.z - halfSize.y),
+    new(position.x - halfSize.x, position.y, position.z + halfSize.y)
   };
 
   cardHits.Clear();
