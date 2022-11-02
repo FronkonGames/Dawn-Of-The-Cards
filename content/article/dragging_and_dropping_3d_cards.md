@@ -142,7 +142,7 @@ public interface IDrop
   /// <returns>Accept or not the object.</returns>
   public bool AcceptDrop(IDrag drag);
 
-  /// <summary> Performs the drop option of an IDrag object. </summary>
+  /// <summary> Performs the drop operation of an IDrag object. </summary>
   /// <param name="drag">Object IDrag.</param>
   public void OnDrop(IDrag drag);
 }
@@ -165,7 +165,7 @@ With these two interfaces ready we can start with the one in charge of handling 
 All this will have to be done in each frame, so it will be done inside the function '**Update**' of '**DragAndDropManager**'. We will use these variables:
 
 ```c#
-// Height at which we want the chart to be in a drag operation.
+// Height at which we want the card to be in a drag operation.
 [SerializeField, Range(0.0f, 10.0f)]
 private float height = 1.0f;
 
@@ -173,32 +173,44 @@ private float height = 1.0f;
 // or null if no drag operation currently exists.
 private IDrag currentDrag;
 
+// IDrag objects that the mouse passes over.
+private IDrag possibleDrag;
+
 // To know the position of the drag object.
 private Transform currentDragTransform;
 
-// To calculate the mouse offset.
+// To calculate the mouse offset (in world-space).
 private Vector3 oldMouseWorldPosition;
 ```
 
 Let's see how to detect an **IDrag**.
 
 ```c#
-IDrag draggable = null;
-
-mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-Transform hit = MouseRaycast();
-if (hit != null)
+/// <summary>Detects an IDrag object under the mouse pointer.</summary>
+/// <returns>IDrag or null.</returns>
+public IDrag DetectDraggable()
 {
-  draggable = hit.GetComponent<IDrag>();
-  if (draggable is { IsDraggable: false })
-    draggable = null;
+  IDrag draggable = null;
+
+  mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+  Transform hit = MouseRaycast();
+  if (hit != null)
+  {
+    draggable = hit.GetComponent<IDrag>();
+    if (draggable is { IsDraggable: false })
+      draggable = null;
+  }
+
+  return draggable;
 }
 ```
 
 Now there are two possibilities, that the left mouse button is pressed or not pressed. If it is pressed and there is an **IDrag** object under the mouse pointer:
 
 ```c#
+IDrag draggable = DetectDraggable();
+
 // Left mouse button pressed?
 if (Input.GetMouseButtonDown(0) == true)
 {
@@ -224,5 +236,82 @@ if (Input.GetMouseButtonDown(0) == true)
   }
 }
 ```
+
+And if the left mouse button is not pressed:
+
+```c#
+// Left mouse button not pressed?
+if (Input.GetMouseButtonDown(0) == false)
+{
+  // We pass over a new IDrag?
+  if (draggable != null && possibleDrag == null)
+  {
+    // We execute its OnPointerEnter.
+    possibleDrag = draggable;
+    possibleDrag.OnPointerEnter(raycastHits[0].point);
+  }
+
+  // We are leaving an IDrag?
+  if (draggable == null && possibleDrag != null)
+  {
+    // We execute its OnPointerExit.
+    possibleDrag.OnPointerExit(raycastHits[0].point);
+    possibleDrag = null;
+  }
+}
+```
+
+We already have the first part, now let's go for the second part: to handle a drag operation. The first thing we will do is a new method that will return the **IDrop** that is under a card. It's not as simple as '**DetectDraggable()**', since a card has a surface and can be on several objects at once. We will need to cast four rays, one for each corner. And to choose one, we will order the
+hits by proximity to the center of the card, this way we will get the **IDrop** object that is on the card and is the closest to it.
+
+We will store the rays hits in a variable of type '[SortedSet](https://learn.microsoft.com/dotnet/api/system.collections.generic.sortedset-1)' to which we will set a custom sorting function:
+
+```c#
+private class ComparerCardDistance : IComparer<Transform>
+{
+  public int Compare(Transform a, Transform b) => a.position.sqrMagnitude.CompareTo(b.position.sqrMagnitude);
+}
+
+private readonly SortedSet<Transform> cardHits = new(new ComparerCardDistance());
+```
+
+In '**cardHits**' will store the following function the results of rays hits:
+
+```c#
+private bool CardRaycast()
+{
+  Transform hit = null;
+  Vector3 cardPosition = currentDragTransform.position; 
+
+  Vector3[] cardConner =
+  {
+    new(cardPosition.x + cardSize.x * 0.5f, cardPosition.y, cardPosition.z - cardSize.y * 0.5f),
+    new(cardPosition.x + cardSize.x * 0.5f, cardPosition.y, cardPosition.z + cardSize.y * 0.5f),
+    new(cardPosition.x - cardSize.x * 0.5f, cardPosition.y, cardPosition.z - cardSize.y * 0.5f),
+    new(cardPosition.x - cardSize.x * 0.5f, cardPosition.y, cardPosition.z + cardSize.y * 0.5f)
+  };
+
+  cardHits.Clear();
+
+  for (int i = 0; i < cardConner.Length; ++i)
+  {
+    Ray ray = new(cardConner[i], Vector3.down);
+    if (Physics.RaycastNonAlloc(ray, raycastHits, Camera.main.farClipPlane, raycastMask) > 0)
+    {
+      System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.distance));
+      hit = raycastHits[0].transform;
+
+      if (cardHits.Contains(raycastHits[0].transform) == false)
+        cardHits.Add(raycastHits[0].transform);
+    }
+  }
+
+  return cardHits.Count > 0;
+}
+```
+
+Let's see it in action:
+
+![Card hits](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/cardhits.gif "Card Hits")
 
 **🚧 WORK IN PROGRESS 🚧**
