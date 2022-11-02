@@ -17,7 +17,7 @@ Moving cards, with elegance.
 
 Now that I have defined [visually a card](https://fronkongames.github.io/Dawn-Of-The-Cards/article/rendering_a_card/), the next thing to do is to move it around the scene.
 
-To do this we first have to detect the cards. We will do this using the '__Raycast__' functions, which __fire__ rays that when colliding with an object give us information about it.
+To do this we first have to detect the cards. We will do this using the '**Raycast**' functions, which __fire__ rays that when colliding with an object give us information about it.
 
 Since it is a performance consuming operation, we will use some tricks to optimize it. The first one is that we will create a [layer](https://docs.unity3d.com/Manual/use-layers.html) to discard objects that are not involved in the operation. We will named it '__DragAndDrop__'.
 
@@ -25,7 +25,7 @@ Since it is a performance consuming operation, we will use some tricks to optimi
 
 We will also limit the ray length to the maximum distance our camera sees, since as a general rule we are not interested in objects we are not going to see. This distance is '__Camera.main.farClipPlane__'.
 
-Since the '__Raycast__' operation is going to be used inside the '__Update__' loop (it is going to be executed every frame), it is always a good idea to avoid allocating memory if we can avoid it. So we will create a [Ray](https://docs.unity3d.com/ScriptReference/Ray.html) and use the function [Physics.RaycastNonAlloc](https://docs.unity3d.com/ScriptReference/Physics.RaycastNonAlloc.html).
+Since the '**Raycast**' operation is going to be used inside the '**Update**' loop (it is going to be executed every frame), it is always a good idea to avoid allocating memory if we can avoid it. So we will create a [Ray](https://docs.unity3d.com/ScriptReference/Ray.html) and use the function [Physics.RaycastNonAlloc](https://docs.unity3d.com/ScriptReference/Physics.RaycastNonAlloc.html).
 
 The code to detect the cards would look something like this:
 
@@ -61,7 +61,7 @@ The code to detect the cards would look something like this:
     {
       // We order the impacts according to distance.
       System.Array.Sort(raycastHits,
-                        (x, y) => x.distance.CompareTo(y.sq));
+                        (x, y) => x.distance.CompareTo(y.distance));
 
 
       // We are only interested in the first one.
@@ -79,5 +79,12 @@ Before calling this function, we must update '__mouseRay__' with the mouse coord
 ```
 
 > ⚠️ **In this post I will use the old [Input](https://docs.unity3d.com/ScriptReference/Input.html) for simplicity, but it is recommended to use the new [Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.4/manual/QuickStartGuide.html).** ⚠️
+
+In order to get all this to work on a card, we must first add a '[Collider](https://docs.unity3d.com/ScriptReference/Collider.html)'. Without this component, our ray would pass through the card without detecting it. A '[Box Collider](https://docs.unity3d.com/Manual/class-BoxCollider.html)' is a good choice for the type of geometry of a card, but if you need more precision you can use a '[Mesh Collider](https://docs.unity3d.com/Manual/class-MeshCollider.html)'.
+
+The second thing to do is to assign the '__layer__' we have selected to the chart. We are now ready to detect a card.
+
+![Ray hit](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/rayhit.gif "Ray Hit")
+
 
 **🚧 WORK IN PROGRESS 🚧**
