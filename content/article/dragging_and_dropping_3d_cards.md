@@ -40,20 +40,29 @@ The code to detect the cards would look something like this:
   // Information on the impacts of shooting a ray.
   private readonly RaycastHit[] raycastHits = new RaycastHit[HitsCount];
   
-  // Ray created from the camera to the projection of the mouse coordinates on the scene.
+  // Ray created from the camera to the projection of the mouse
+  // coordinates on the scene.
   private Ray mouseRay;
 
-  /// <summary> Returns the Transfrom of the object closest to the origin of the beam. </summary>
+  /// <summary>
+  /// Returns the Transfrom of the object closest to the origin
+  /// of the ray.
+  /// </summary>
   /// <returns>Transform or null if there is no impact.</returns>
   private Transform MouseRaycast()
   {
     Transform hit = null;
 
     // Fire the ray!
-    if (Physics.RaycastNonAlloc(mouseRay, raycastHits, Camera.main.farClipPlane, raycastMask) > 0)
+    if (Physics.RaycastNonAlloc(mouseRay,
+                                raycastHits,
+                                Camera.main.farClipPlane,
+                                raycastMask) > 0)
     {
       // We order the impacts according to distance.
-      System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.sq));
+      System.Array.Sort(raycastHits,
+                        (x, y) => x.distance.CompareTo(y.sq));
+
 
       // We are only interested in the first one.
       hit = raycastHits[0].transform;
@@ -63,4 +72,12 @@ The code to detect the cards would look something like this:
   }  
 ```
 
-WORK IN PROGRESS
+Before calling this function, we must update '__mouseRay__' with the mouse coordinates. We will do it with this code:
+
+```c#
+  mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+```
+
+> ⚠️ **In this post I will use the old [Input](https://docs.unity3d.com/ScriptReference/Input.html) for simplicity, but it is recommended to use the new [Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.4/manual/QuickStartGuide.html).** ⚠️
+
+**🚧 WORK IN PROGRESS 🚧**
