@@ -275,43 +275,106 @@ private class ComparerCardDistance : IComparer<Transform>
 private readonly SortedSet<Transform> cardHits = new(new ComparerCardDistance());
 ```
 
-In '**cardHits**' will store the following function the results of rays hits:
+And this is the method to search for the nearest IDrop:
 
 ```c#
-private bool CardRaycast()
+private IDrop DetectDroppable()
 {
-  Transform hit = null;
-  Vector3 cardPosition = currentDragTransform.position; 
+  IDrop droppable = null;
 
+  // The four corners of the card.
   Vector3[] cardConner =
   {
-    new(cardPosition.x + cardSize.x * 0.5f, cardPosition.y, cardPosition.z - cardSize.y * 0.5f),
-    new(cardPosition.x + cardSize.x * 0.5f, cardPosition.y, cardPosition.z + cardSize.y * 0.5f),
-    new(cardPosition.x - cardSize.x * 0.5f, cardPosition.y, cardPosition.z - cardSize.y * 0.5f),
-    new(cardPosition.x - cardSize.x * 0.5f, cardPosition.y, cardPosition.z + cardSize.y * 0.5f)
+    new(currentDragTransform.position.x + cardSize.x * 0.5f,
+        currentDragTransform.position.y,
+        currentDragTransform.position.z - cardSize.y * 0.5f),
+    new(currentDragTransform.position.x + cardSize.x * 0.5f,
+        currentDragTransform.position.y,
+        currentDragTransform.position.z + cardSize.y * 0.5f),
+    new(currentDragTransform.position.x - cardSize.x * 0.5f,
+        currentDragTransform.position.y,
+        currentDragTransform.position.z - cardSize.y * 0.5f),
+    new(currentDragTransform.position.x - cardSize.x * 0.5f,
+        currentDragTransform.position.y,
+        currentDragTransform.position.z + cardSize.y * 0.5f)
   };
 
   cardHits.Clear();
 
+  // We launch the four rays.
   for (int i = 0; i < cardConner.Length; ++i)
   {
     Ray ray = new(cardConner[i], Vector3.down);
-    if (Physics.RaycastNonAlloc(ray, raycastHits, Camera.main.farClipPlane, raycastMask) > 0)
+    if (Physics.RaycastNonAlloc(ray,
+                                raycastHits,
+                                Camera.main.farClipPlane,
+                                raycastMask) > 0)
     {
+      // We order the impacts by distance from the origin of the ray.
       System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.distance));
-      hit = raycastHits[0].transform;
 
+      // We are only interested in the closest one.
       if (cardHits.Contains(raycastHits[0].transform) == false)
         cardHits.Add(raycastHits[0].transform);
     }
   }
 
-  return cardHits.Count > 0;
+  // We are looking for the nearest possible IDrop.
+  foreach (Transform hit in cardHits)
+  {
+    droppable = hit.GetComponent<IDrop>();
+    if (droppable is { IsDroppable: true })
+      break;
+  }
+
+  return droppable;
 }
 ```
 
 Let's see it in action:
 
 ![Card hits](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/cardhits.gif "Card Hits")
+
+Ya podemos afrontar la parte en la que manejamos una operacion de drag:
+
+```c#
+if (currentDrag != null)
+{
+  IDrop droppable = DetectDroppable();
+
+  // Is the left mouse button held down?
+  if (Input.GetMouseButton(0) == true)
+  {
+    // We calculate the offset of the mouse with respect to its previous position.
+    Vector3 mouseWorldPosition = MousePositionToWorldPoint();
+    Vector3 deltaPosition = (mouseWorldPosition - oldMouseWorldPosition) * dragSpeed;
+    
+    if (currentDragTransform.position.x + deltaPosition.x > playZone.x + this.transform.position.x - cardSize.x * 0.5f ||
+        currentDragTransform.position.x + deltaPosition.x < playZone.y + this.transform.position.x + cardSize.x * 0.5f)
+      deltaPosition.x = 0;
+
+    if (currentDragTransform.position.z + deltaPosition.z > playZone.w + this.transform.position.x - cardSize.y * 0.5f ||
+        currentDragTransform.position.z + deltaPosition.z < playZone.z + this.transform.position.x + cardSize.y * 0.5f)
+      deltaPosition.z = 0;
+    
+    // OnDrag is executed.
+    currentDrag.OnDrag(deltaPosition, droppable);
+
+    oldMouseWorldPosition = mouseWorldPosition;
+  }
+  else if (Input.GetMouseButtonUp(0) == true)
+  {
+    // The left mouse button is released and the drag operation is finished.
+    currentDrag.Dragging = false;
+    currentDrag.OnEndDrag(raycastHits[0].point, droppable);
+    currentDrag = null;
+    currentDragTransform = null;
+
+    // We return the mouse icon to its normal state.
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+  }  
+}
+```
 
 **🚧 WORK IN PROGRESS 🚧**
