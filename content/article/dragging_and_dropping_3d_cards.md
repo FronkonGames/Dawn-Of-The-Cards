@@ -186,7 +186,7 @@ private Vector3 oldMouseWorldPosition;
 Let's see how to detect an **IDrag**.
 
 ```c#
-/// <summary>Detects an IDrag object under the mouse pointer.</summary>
+/// <summary>Detects an IDrag object under the mouse.</summary>
 /// <returns>IDrag or null.</returns>
 public IDrag DetectDraggable()
 {
@@ -198,7 +198,9 @@ public IDrag DetectDraggable()
   if (hit != null)
   {
     draggable = hit.GetComponent<IDrag>();
-    if (draggable is { IsDraggable: false })
+    if (draggable is { IsDraggable: true })
+      currentDragTransform = hit;
+    else
       draggable = null;
   }
 
@@ -264,20 +266,18 @@ if (Input.GetMouseButtonDown(0) == false)
 We already have the first part, now let's go for the second part: to handle a drag operation. The first thing we will do is a new method that will return the **IDrop** that is under a card. It's not as simple as '**DetectDraggable()**', since a card has a surface and can be on several objects at once. We will need to cast four rays, one for each corner. And to choose one, we will order the
 hits by proximity to the center of the card, this way we will get the **IDrop** object that is on the card and is the closest to it.
 
-We will store the rays hits in a variable of type '[SortedSet](https://learn.microsoft.com/dotnet/api/system.collections.generic.sortedset-1)' to which we will set a custom sorting function:
+We will store the rays hits in an array:
 
 ```c#
-private class ComparerCardDistance : IComparer<Transform>
-{
-  public int Compare(Transform a, Transform b) => a.position.sqrMagnitude.CompareTo(b.position.sqrMagnitude);
-}
-
-private readonly SortedSet<Transform> cardHits = new(new ComparerCardDistance());
+// Information on impacts from the corners of a card.
+private readonly RaycastHit[] cardHits = new RaycastHit[4];
 ```
 
 And this is the method to search for the nearest IDrop:
 
 ```c#
+/// <summary>Detects an IDrop object under the mouse.</summary>
+/// <returns>IDrop or null.</returns>
 private IDrop DetectDroppable()
 {
   IDrop droppable = null;
@@ -293,6 +293,7 @@ private IDrop DetectDroppable()
     new(position.x - halfSize.x, position.y, position.z + halfSize.y)
   };
 
+  int cardHitIndex = 0;
   cardHits.Clear();
 
   // We launch the four rays.
@@ -309,17 +310,17 @@ private IDrop DetectDroppable()
         x.distance.CompareTo(y.distance));
 
       // We are only interested in the closest one.
-      if (cardHits.Contains(raycastHits[0].transform) == false)
-        cardHits.Add(raycastHits[0].transform);
+      cardHits[cardHitIndex++] = raycastHits[0];
     }
   }
 
-  // We are looking for the nearest possible IDrop.
-  foreach (Transform hit in cardHits)
+  if (cardHitIndex > 0)
   {
-    droppable = hit.GetComponent<IDrop>();
-    if (droppable is { IsDroppable: true })
-      break;
+    // We are looking for the nearest possible IDrop.
+    System.Array.Sort(cardHits, (x, y) =>
+      x.distance.CompareTo(y.distance));
+
+    droppable = cardHits[0].transform.GetComponent<IDrop>();
   }
 
   return droppable;
@@ -344,16 +345,6 @@ if (currentDrag != null)
     Vector3 mouseWorldPosition = MousePositionToWorldPoint();
     Vector3 offset = (mouseWorldPosition - oldMouseWorldPosition) * dragSpeed;
 
-    Vector3 dragPosition = currentDragTransform.position;
-    Vector3 position = this.transform.position;
-    if (dragPosition.x + offset.x > playZone.x + position.x - cardSize.x * 0.5f ||
-        dragPosition.x + offset.x < playZone.y + position.x + cardSize.x * 0.5f)
-      offset.x = 0;
-
-    if (dragPosition.z + offset.z > playZone.w + position.x - cardSize.y * 0.5f ||
-        dragPosition.z + offset.z < playZone.z + position.x + cardSize.y * 0.5f)
-      offset.z = 0;
-    
     // OnDrag is executed.
     currentDrag.OnDrag(offset, droppable);
 
@@ -375,6 +366,92 @@ if (currentDrag != null)
 }
 ```
 
-We already have everything we need for our drag and drop manager! Remember that at the end of this article you will find all the files with the source code.
+We already have the complete manager, but if you look at the code it doesn't actually move anything. That's because it's the __IDrag__ objects that are responsible for doing it. Let's see how they would be an object __IDrag__, which in our case is a card.
+
+```c#
+/// <summary>
+/// Card Drag.
+/// </summary>
+[RequireComponent(typeof(Collider))]
+public sealed class CardDrag : MonoBehaviour, IDrag
+{
+  public bool IsDraggable { get; private set; } = true;
+
+  public bool Dragging { get; set; }
+
+  // Position when the Drag starts.
+  private Vector3 dragOriginPosition;  
+
+  // Unused for the moment.
+  public void OnPointerEnter(Vector3 position) { }
+  public void OnPointerExit(Vector3 position)  { }
+
+  /// <summary> Drag begins. </summary>
+  /// <param name="position">Mouse position.</param>
+  public void OnBeginDrag(Vector3 position)
+  {
+    // We store the current position, so that in case
+    // the drag operation is not completed, the card
+    // will return to its original position.
+    dragOriginPosition = transform.position;
+
+    // We raise the card to the height indicated by 'position'.
+    transform.position = new Vector3(transform.position.x,
+                                     position.y,
+                                     transform.position.z);
+  }
+
+  /// <summary>A drag is being made. </summary>
+  /// <param name="deltaPosition"> Mouse offset position. </param>
+  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  public void OnDrag(Vector3 deltaPosition, IDrop droppable)
+  {
+    // We ignore the displacement of the height.
+    deltaPosition.y = 0.0f;
+
+    // We move the card.
+    transform.position += deltaPosition;
+  }
+
+  /// <summary> The drag operation is completed. </summary>
+  /// <param name="position">Mouse position.</param>
+  /// <param name="droppable">Object on which a drop may be made, or null.</param>
+  public void OnEndDrag(Vector3 position, IDrop droppable)
+  {
+    // The IDrop object is active and accepts IDrag.
+    if (droppable is { IsDroppable: true } &&
+        droppable.AcceptDrop(this) == true)
+      card.position = new Vector3(transform.position.x,
+                                  position.y,
+                                  transform.position.z);
+    else
+      // There was no drop, we return to the original position.
+      card.position = dragOriginPosition;
+  }
+}
+```
+
+Remember that in my case I am moving cards that do not have physics. In the case of objects with physics (with the [RigidBody](https://docs.unity3d.com/es/2019.4/Manual/class-Rigidbody.html) component), the correct way to move them is using '[RigidBody.MovePosition](https://docs.unity3d.com/ScriptReference/Rigidbody.MovePosition.html)' if it is [Kinematic](https://docs.unity3d.com/ScriptReference/Rigidbody-isKinematic.html), and using '[RigidBody.AddForce](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html)' if it is not.
+
+We also need an __IDrop__ object that will accept our traveling card. It is as simple as this:
+
+```c#
+/// <summary>
+/// Accept draggable objects.
+/// </summary>
+public class DroppableFloor : MonoBehaviour, IDrop
+{
+  public bool IsDroppable => true;
+
+  // We accept all IDrags.
+  public bool AcceptDrop(IDrag drag) => true;
+
+  public void OnDrop(IDrag drag) { }
+}
+```
+
+Let's take a look at a successful drag operation.
+
+And now one that does not, since one of the corners collides with an __IDrag__ (another card) and this one is closer to the __IDrop__ (the ground).
 
 **🚧 WORK IN PROGRESS 🚧**
