@@ -341,9 +341,11 @@ if (currentDrag != null)
   // Is the left mouse button held down?
   if (Input.GetMouseButton(0) == true)
   {
-    // Calculate the offset of the mouse with respect to its previous position.
+    // Calculate the offset of the mouse with respect
+    // to its previous position.
     Vector3 mouseWorldPosition = MousePositionToWorldPoint();
-    Vector3 offset = (mouseWorldPosition - oldMouseWorldPosition) * dragSpeed;
+    Vector3 offset = mouseWorldPosition - oldMouseWorldPosition;
+    offset *= dragSpeed;
 
     // OnDrag is executed.
     currentDrag.OnDrag(offset, droppable);
@@ -431,7 +433,7 @@ public sealed class CardDrag : MonoBehaviour, IDrag
 }
 ```
 
-Remember that in my case I am moving cards that do not have physics. In the case of objects with physics (with the [RigidBody](https://docs.unity3d.com/es/2019.4/Manual/class-Rigidbody.html) component), the correct way to move them is using '[RigidBody.MovePosition](https://docs.unity3d.com/ScriptReference/Rigidbody.MovePosition.html)' if it is [Kinematic](https://docs.unity3d.com/ScriptReference/Rigidbody-isKinematic.html), and using '[RigidBody.AddForce](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html)' if it is not.
+> Remember that in my case I am moving cards that do not have physics. In the case of objects with physics (with the [RigidBody](https://docs.unity3d.com/es/2019.4/Manual/class-Rigidbody.html) component), the correct way to move them is using '[RigidBody.MovePosition](https://docs.unity3d.com/ScriptReference/Rigidbody.MovePosition.html)' if it is [Kinematic](https://docs.unity3d.com/ScriptReference/Rigidbody-isKinematic.html), or using '[RigidBody.AddForce](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html)' if it is not.
 
 We also need an __IDrop__ object that will accept our traveling card. It is as simple as this:
 
@@ -452,6 +454,10 @@ public class DroppableFloor : MonoBehaviour, IDrop
 
 Let's take a look at a successful drag operation.
 
+![Drag Ok](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragok.gif "Drag Ok")
+
 And now one that does not, since one of the corners collides with an __IDrag__ (another card) and this one is closer to the __IDrop__ (the ground).
+
+![Drag Fail](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragfail.gif "Drag Fail")
 
 **🚧 WORK IN PROGRESS 🚧**
