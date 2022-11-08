@@ -433,7 +433,7 @@ public sealed class CardDrag : MonoBehaviour, IDrag
 }
 ```
 
-> Remember that in my case I am moving cards that do not have physics. In the case of objects with physics (with the [RigidBody](https://docs.unity3d.com/es/2019.4/Manual/class-Rigidbody.html) component), the correct way to move them is using '[RigidBody.MovePosition](https://docs.unity3d.com/ScriptReference/Rigidbody.MovePosition.html)' if it is [Kinematic](https://docs.unity3d.com/ScriptReference/Rigidbody-isKinematic.html), or using '[RigidBody.AddForce](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html)' if it is not.
+> Remember that I am moving cards that do not have physics. In the case of objects with physics (with the [RigidBody](https://docs.unity3d.com/es/2019.4/Manual/class-Rigidbody.html) component), the correct way to move them is using '[RigidBody.MovePosition](https://docs.unity3d.com/ScriptReference/Rigidbody.MovePosition.html)' if it is [Kinematic](https://docs.unity3d.com/ScriptReference/Rigidbody-isKinematic.html), or using '[RigidBody.AddForce](https://docs.unity3d.com/ScriptReference/Rigidbody.AddForce.html)' if it is not.
 
 We also need an __IDrop__ object that will accept our traveling card. It is as simple as this:
 
@@ -459,5 +459,49 @@ Let's take a look at a successful drag operation.
 And now one that does not, since one of the corners collides with an __IDrag__ (another card) and this one is closer to the __IDrop__ (the ground).
 
 ![Drag Fail](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragfail.gif "Drag Fail")
+
+We already have the basics. Now let's improve it a bit. The first thing we can do is change the way we pick up and drop the cards. Now they do it instantly,
+they __teleport__ to the position we tell them to. Instead we can use the velocity formula (velocity = space / time) to move with constant velocity the cards.
+We would have something like this:
+
+![Drag Linear](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/draglinear.gif "Drag Linear")
+
+Better, but still doesn't give a good feeling. Objects in real life do not reach a speed at instance, they have [inertia](https://en.wikipedia.org/wiki/Inertia). To make it similar in a simple way
+we can use [Easing functions](https://easings.net/), functions that interpolate values (values, vectors, colors, etc) using different curves.
+
+![Easings](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/easings.gif "Easings")
+
+There are many libraries with these functions. You may be interested in using my '[Tiny Tween](https://gist.github.com/FronkonGames/ae3d0d613ac4ea6738e288c0a490c020)', a simple to use library, very complete and in **one file**.
+
+Let's change the way we pick up cards, using '[Tiny Tween](https://gist.github.com/FronkonGames/ae3d0d613ac4ea6738e288c0a490c020)' to raise it to the height we want in a natural way.
+
+```c#
+public void OnBeginDrag(Vector3 position)
+{
+  dragOriginPosition = card.position;
+
+  // While the card is being lifted, we do not want it to be draggable.
+  IsDraggable = false;
+
+  // We create a Tween to change the height of the card.
+  TweenFloat.Create()
+    .Origin(dragOriginPosition.y)   // Origin.
+    .Destination(position.y)        // Destination.
+    .Duration(riseDuration)         // Duration.
+    .EasingIn(riseEaseIn)           // Initial Easing function.
+    .EasingOut(riseEaseOut)         // Final Easing function.
+    // This is where the position is modified.
+    .OnUpdate(tween => transform.position =
+      new Vector3(transform.position.x,
+                  tween.Value,      // Only the height.
+                  transform.position.z))
+    .OnEnd(_ => IsDraggable = true) // When finished, it becomes draggable again.
+    .Start();
+}
+```
+
+And this would be the result:
+
+![Drag Drop](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragdrop.gif "Drag Drop")
 
 **🚧 WORK IN PROGRESS 🚧**
