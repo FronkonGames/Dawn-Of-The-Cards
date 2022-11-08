@@ -495,7 +495,8 @@ public void OnBeginDrag(Vector3 position)
       new Vector3(transform.position.x,
                   tween.Value,      // Only the height.
                   transform.position.z))
-    .OnEnd(_ => IsDraggable = true) // When finished, it becomes draggable again.
+    .OnEnd(_ => IsDraggable = true) // When finished,
+                                    // it becomes draggable again.
     .Start();
 }
 ```
@@ -503,5 +504,13 @@ public void OnBeginDrag(Vector3 position)
 And this would be the result:
 
 ![Drag Drop](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragdrop.gif "Drag Drop")
+
+Much better! And only adding one file! ;)
+
+Let's apply the same change to how the card moves. Right now it's very static, it looks like it's moving in a vacuum. We can exaggerate the friction of a flexible object moving in the air and rotate the cards depending on their direction and speed. You may have seen this effect in games such as '[Hearthstone](https://hearthstone.blizzard.com/)'.
+
+We are going to modify the angles of the card according to its velocity vector. Specifically we will change the __pitch__ and __roll__.
+
+![Axis](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/axis.png "Axis")
 
 **🚧 WORK IN PROGRESS 🚧**
