@@ -513,4 +513,78 @@ We are going to modify the angles of the card according to its velocity vector. 
 
 ![Axis](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/axis.png "Axis")
 
+Each axis will have a __force__ that will be applied to modify that axis. We will also limit the __range__ of the angles. And finally a time that will be the time it takes for the axes to return to their original value.
+
+```c#
+[Header("Pitch")]
+
+[SerializeField, Label("Force")]
+private float pitchForce = 10.0f;  
+
+[SerializeField, Label("Minimum Angle")]
+private float pitchMinAngle = -25.0f;  
+
+[SerializeField, Label("Maximum Angle")]
+private float pitchMaxAngle = 25.0f;  
+
+[Space]
+
+[Header("Roll")]
+
+[SerializeField, Label("Force")]
+private float rollForce = 10.0f;  
+
+[SerializeField, Label("Minimum Angle")]
+private float rollMinAngle = -25.0f;  
+
+[SerializeField, Label("Maximum Angle")]
+private float rollMaxAngle = 25.0f;  
+
+[Space]
+
+[SerializeField]
+private float restTime = 1.0f;  
+
+// Pitch angle and velocity.
+private float pitchAngle, pitchVelocity;
+
+// Roll angle and velocity.
+private float rollAngle, rollVelocity;
+
+// To calculate the velocity vector.
+private Vector3 oldPosition;
+
+// The original rotation
+private Vector3 originalAngles;
+```
+
+In each frame we must calculate:
+
+* The velocity vector, or offset, of the card.
+* Calculate the pitch and roll depending on each axis and its force (__pitchForce__ and __rollForce__).
+* Limit the angles to the valid ranges.
+* Calculate the angles.
+* Apply the angles to the rotation of the card.
+
+The speed vector is very simple, just subtract the current position from the position of the previous frame.
+
+```c#
+Vector3 currentPosition = card.position;
+Vector3 offset = currentPosition - oldPosition;
+
+...
+
+oldPosition = currentPosition;
+```
+
+If the [modulus](https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html) of __offset__ is greater than [Mathf.Epsilon](https://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html) (a value very very close to zero), we apply the forces to each angle and limit the range of the result.
+
+```c#
+if (offset.sqrMagnitude > Mathf.Epsilon)
+{
+  pitchAngle = Mathf.Clamp(pitchAngle + offset.z * pitchForce, pitchMinAngle, pitchMaxAngle);
+  rollAngle = Mathf.Clamp(rollAngle + offset.x * rollForce, rollMinAngle, rollMaxAngle);
+}
+```
+
 **🚧 WORK IN PROGRESS 🚧**
