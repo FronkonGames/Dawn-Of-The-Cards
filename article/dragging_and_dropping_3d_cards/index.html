@@ -356,7 +356,58 @@ we can use <a href=https://easings.net/>Easing functions</a>, functions that int
 </span></span><span style=display:flex><span>                                    <span style=color:#75715e>// it becomes draggable again.</span>
 </span></span><span style=display:flex><span>    .Start();
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>And this would be the result:</p><p><img src=/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragdrop.gif alt="Drag Drop" title="Drag Drop"></p><p>Much better! And only adding one file! ;)</p><p>Let&rsquo;s apply the same change to how the card moves. Right now it&rsquo;s very static, it looks like it&rsquo;s moving in a vacuum. We can exaggerate the friction of a flexible object moving in the air and rotate the cards depending on their direction and speed. You may have seen this effect in games such as &lsquo;<a href=https://hearthstone.blizzard.com/>Hearthstone</a>&rsquo;.</p><p>We are going to modify the angles of the card according to its velocity vector. Specifically we will change the <strong>pitch</strong> and <strong>roll</strong>.</p><p><img src=/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/axis.png alt=Axis title=Axis></p><p><strong>🚧 WORK IN PROGRESS 🚧</strong></p></div><div class="footer no-tags"></div></article></div><div id=comments-container><script src=https://giscus.app/client.js data-repo=FronkonGames/Dawn-Of-The-Cards data-repo-id=R_kgDOHxLLYA data-category=Devblog data-category-id=DIC_kwDOHxLLYM4CQpcc data-mapping=pathname data-reactions-enabled=1 data-emit-metadata data-theme=preferred_color_scheme data-lang=en crossorigin=anonymous async></script><div id=giscus></div></div></div><footer><div class=container><div class=recent-posts><strong>Latest posts</strong><ul><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/dragging_and_dropping_3d_cards/>Dragging And Dropping 3D Cards 🃏</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/rendering_a_card/>Rendering A Card In URP 🖌️</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/making_a_3d_card_in_blender/>Making A 3D Card In Blender 🃏</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/hello_everybody/>Hello Everybody! 🧟</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/archive/>Archive page</a></li></ul></div><div class=right><div class=external-profiles><strong>Social media</strong>
+</span></span></code></pre></div><p>And this would be the result:</p><p><img src=/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/dragdrop.gif alt="Drag Drop" title="Drag Drop"></p><p>Much better! And only adding one file! ;)</p><p>Let&rsquo;s apply the same change to how the card moves. Right now it&rsquo;s very static, it looks like it&rsquo;s moving in a vacuum. We can exaggerate the friction of a flexible object moving in the air and rotate the cards depending on their direction and speed. You may have seen this effect in games such as &lsquo;<a href=https://hearthstone.blizzard.com/>Hearthstone</a>&rsquo;.</p><p>We are going to modify the angles of the card according to its velocity vector. Specifically we will change the <strong>pitch</strong> and <strong>roll</strong>.</p><p><img src=/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/axis.png alt=Axis title=Axis></p><p>Each axis will have a <strong>force</strong> that will be applied to modify that axis. We will also limit the <strong>range</strong> of the angles. And finally a time that will be the time it takes for the axes to return to their original value.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c# data-lang=c#><span style=display:flex><span><span style=color:#a6e22e>[Header(&#34;Pitch&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Force&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> pitchForce = <span style=color:#ae81ff>10.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Minimum Angle&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> pitchMinAngle = -<span style=color:#ae81ff>25.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Maximum Angle&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> pitchMaxAngle = <span style=color:#ae81ff>25.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[Space]</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[Header(&#34;Roll&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Force&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> rollForce = <span style=color:#ae81ff>10.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Minimum Angle&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> rollMinAngle = -<span style=color:#ae81ff>25.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField, Label(&#34;Maximum Angle&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> rollMaxAngle = <span style=color:#ae81ff>25.0f</span>;  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[Space]</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>[SerializeField]</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> restTime = <span style=color:#ae81ff>1.0f</span>;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Pitch angle and velocity.</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> pitchAngle, pitchVelocity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Roll angle and velocity.</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>float</span> rollAngle, rollVelocity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// To calculate the velocity vector.</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> Vector3 oldPosition;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// The original rotation</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> Vector3 originalAngles;
+</span></span></code></pre></div><p>In each frame we must calculate:</p><ul><li>The velocity vector, or offset, of the card.</li><li>Calculate the pitch and roll depending on each axis and its force (<strong>pitchForce</strong> and <strong>rollForce</strong>).</li><li>Limit the angles to the valid ranges.</li><li>Calculate the angles.</li><li>Apply the angles to the rotation of the card.</li></ul><p>The speed vector is very simple, just subtract the current position from the position of the previous frame.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c# data-lang=c#><span style=display:flex><span>Vector3 currentPosition = card.position;
+</span></span><span style=display:flex><span>Vector3 offset = currentPosition - oldPosition;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>oldPosition = currentPosition;
+</span></span></code></pre></div><p>If the <a href=https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html>modulus</a> of <strong>offset</strong> is greater than <a href=https://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html>Mathf.Epsilon</a> (a value very very close to zero), we apply the forces to each angle and limit the range of the result.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c# data-lang=c#><span style=display:flex><span><span style=color:#66d9ef>if</span> (offset.sqrMagnitude &gt; Mathf.Epsilon)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  pitchAngle = Mathf.Clamp(pitchAngle + offset.z * pitchForce, pitchMinAngle, pitchMaxAngle);
+</span></span><span style=display:flex><span>  rollAngle = Mathf.Clamp(rollAngle + offset.x * rollForce, rollMinAngle, rollMaxAngle);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>🚧 WORK IN PROGRESS 🚧</strong></p></div><div class="footer no-tags"></div></article></div><div id=comments-container><script src=https://giscus.app/client.js data-repo=FronkonGames/Dawn-Of-The-Cards data-repo-id=R_kgDOHxLLYA data-category=Devblog data-category-id=DIC_kwDOHxLLYM4CQpcc data-mapping=pathname data-reactions-enabled=1 data-emit-metadata data-theme=preferred_color_scheme data-lang=en crossorigin=anonymous async></script><div id=giscus></div></div></div><footer><div class=container><div class=recent-posts><strong>Latest posts</strong><ul><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/dragging_and_dropping_3d_cards/>Dragging And Dropping 3D Cards 🃏</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/rendering_a_card/>Rendering A Card In URP 🖌️</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/making_a_3d_card_in_blender/>Making A 3D Card In Blender 🃏</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/article/hello_everybody/>Hello Everybody! 🧟</a></li><li><a href=https://fronkongames.github.io/Dawn-Of-The-Cards/archive/>Archive page</a></li></ul></div><div class=right><div class=external-profiles><strong>Social media</strong>
 <a href=https://twitter.com/fronkongames target=_blank><i class="fab fa-twitter"></i></a>
 <a href=https://github.com/FronkonGames target=_blank><i class="fab fa-github"></i></a></div></div></div></footer><div class=credits><div class=container><div class=copyright><a href=https://fronkongames.github.io/ target=_blank>&copy;
 2022
