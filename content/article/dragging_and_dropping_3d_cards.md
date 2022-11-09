@@ -560,13 +560,13 @@ private Vector3 originalAngles;
 
 In each frame we must calculate:
 
-* The velocity vector, or offset, of the card.
-* Calculate the pitch and roll depending on each axis and its force (__pitchForce__ and __rollForce__).
-* Limit the angles to the valid ranges.
-* Calculate the angles.
-* Apply the angles to the rotation of the card.
+- The velocity vector, or offset, of the card.
+- Calculate the pitch and roll depending on each axis and its force (__pitchForce__ and __rollForce__).
+- Limit the angles to the valid ranges.
+- Calculate the angles and over time (__restTime__) tend to zero.
+- Apply the angles to the rotation of the card.
 
-The speed vector is very simple, just subtract the current position from the position of the previous frame.
+The offset vector is very simple, just subtract the current position from the position of the previous frame.
 
 ```c#
 Vector3 currentPosition = card.position;
@@ -577,7 +577,7 @@ Vector3 offset = currentPosition - oldPosition;
 oldPosition = currentPosition;
 ```
 
-If the [modulus](https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html) of __offset__ is greater than [Mathf.Epsilon](https://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html) (a value very very close to zero), we apply the forces to each angle and limit the range of the result.
+To rule out small vibrations, we will only calculate the angles when the modulus of __offset__ is greater than [Mathf.Epsilon](https://docs.unity3d.com/ScriptReference/Mathf.Epsilon.html) (which is a value very close to zero). And since we don't care about the actual value of the modulus, we will use [Vector3.sqrMagnitude](https://docs.unity3d.com/ScriptReference/Vector3-sqrMagnitude.html) to avoid calculating a square root.
 
 ```c#
 if (offset.sqrMagnitude > Mathf.Epsilon)
@@ -587,4 +587,33 @@ if (offset.sqrMagnitude > Mathf.Epsilon)
 }
 ```
 
-**🚧 WORK IN PROGRESS 🚧**
+We already have the value of each angle, now we want that little by little those values tend to be at rest (__restTime__). To do it we will use the function [Mathf.SmoothDamp](https://docs.unity3d.com/ScriptReference/Mathf.SmoothDamp.html) that also smooths the changes.
+
+
+```c#
+pitchAngle = Mathf.SmoothDamp(pitchAngle, 0.0f, ref pitchVelocity, restTime * Time.deltaTime * 10.0f);
+rollAngle = Mathf.SmoothDamp(rollAngle, 0.0f, ref rollVelocity, restTime * Time.deltaTime * 10.0f);
+```
+
+And now we only have to apply the angles to the rotation of the card.
+
+```c#
+transform.rotation = Quaternion.Euler(originalAngles.x + pitchAngle,
+                                      originalAngles.y,
+                                      originalAngles.z - rollAngle);
+```
+
+Let's see the result.
+
+![Tilt](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/tilt.gif "Tilt")
+
+Nice! That's all for now. In next posts we will see some useful objects for a card game such as: decks, slot, etc. In the meantime you can add some improvements like:
+
+* Choose which Easing functions to use to pick up cards and drop them. I am using Quart/Back to pick them up and Quart/Bounce to drop them.
+* Add some dust particles when dropping a card.
+* Add a camera shake when dropping a card to give it more drama.
+* And... can you think of anything else? I'd love to read about it in the comments.
+
+Until next time... **stay gamedev, stay awesome!**
+
+> [📥 DRAG AND DROP CODE 📥](https://gist.github.com/FronkonGames/78f2d00334b7aa8d3a3564b6c62f4fe7)
