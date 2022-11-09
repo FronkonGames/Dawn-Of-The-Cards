@@ -11,7 +11,7 @@ tags: false
 
 ![Promo](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.gif "Promo")
 
-Moving cards, with elegance.
+Moving cards, with juice.
 
 <!--more-->
 
@@ -582,8 +582,12 @@ To rule out small vibrations, we will only calculate the angles when the modulus
 ```c#
 if (offset.sqrMagnitude > Mathf.Epsilon)
 {
-  pitchAngle = Mathf.Clamp(pitchAngle + offset.z * pitchForce, pitchMinAngle, pitchMaxAngle);
-  rollAngle = Mathf.Clamp(rollAngle + offset.x * rollForce, rollMinAngle, rollMaxAngle);
+  pitchAngle = Mathf.Clamp(pitchAngle + offset.z * pitchForce,
+                           pitchMinAngle,
+                           pitchMaxAngle);
+  rollAngle = Mathf.Clamp(rollAngle + offset.x * rollForce,
+                          rollMinAngle,
+                          rollMaxAngle);
 }
 ```
 
@@ -591,8 +595,14 @@ We already have the value of each angle, now we want that little by little those
 
 
 ```c#
-pitchAngle = Mathf.SmoothDamp(pitchAngle, 0.0f, ref pitchVelocity, restTime * Time.deltaTime * 10.0f);
-rollAngle = Mathf.SmoothDamp(rollAngle, 0.0f, ref rollVelocity, restTime * Time.deltaTime * 10.0f);
+pitchAngle = Mathf.SmoothDamp(pitchAngle,
+                              0.0f,
+                              ref pitchVelocity,
+                              restTime * Time.deltaTime * 10.0f);
+rollAngle = Mathf.SmoothDamp(rollAngle,
+                             0.0f,
+                             ref rollVelocity,
+                             restTime * Time.deltaTime * 10.0f);
 ```
 
 And now we only have to apply the angles to the rotation of the card.
@@ -616,4 +626,4 @@ Nice! That's all for now. In next posts we will see some useful objects for a ca
 
 Until next time... **stay gamedev, stay awesome!**
 
-> [📥 DRAG AND DROP CODE 📥](https://gist.github.com/FronkonGames/78f2d00334b7aa8d3a3564b6c62f4fe7)
+> [📥 DRAG AND DROP CODE 📥](https://gist.github.com/FronkonGames/e14d6f02fe90df7a2e212b11ee2f0a3c)

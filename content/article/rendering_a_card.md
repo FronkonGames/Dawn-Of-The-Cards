@@ -323,7 +323,7 @@ That's all for now. In next posts I will add other effects that can be useful fo
 * Scaling. Simply multiplying by a scalar the UV coordinate.
 * Angular velocity, to rotate the layers of the effects.
 * Use different [blending functions](https://photoshoptrainingchannel.com/blending-modes-explained/) for the effect layers. In this post I have only used a simple way to blend the layers, but there are many blending functions that can give interesting results.
-* And... can you think of anything else?
+* And... can you think of anything else? I'd love to read about it in the comments.
 
 Until next time... **stay gamedev, stay awesome!**
 
