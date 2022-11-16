@@ -423,12 +423,12 @@ public sealed class CardDrag : MonoBehaviour, IDrag
     // The IDrop object is active and accepts IDrag.
     if (droppable is { IsDroppable: true } &&
         droppable.AcceptDrop(this) == true)
-      card.position = new Vector3(transform.position.x,
-                                  position.y,
-                                  transform.position.z);
+      transform.position = new Vector3(transform.position.x,
+                                       position.y,
+                                       transform.position.z);
     else
       // There was no drop, we return to the original position.
-      card.position = dragOriginPosition;
+      transform.position = dragOriginPosition;
   }
 }
 ```
@@ -478,7 +478,7 @@ Let's change the way we pick up cards, using '[Tiny Tween](https://gist.github.c
 ```c#
 public void OnBeginDrag(Vector3 position)
 {
-  dragOriginPosition = card.position;
+  dragOriginPosition = transform.position;
 
   // While the card is being lifted, we do not want it to be draggable.
   IsDraggable = false;
@@ -569,7 +569,7 @@ In each frame we must calculate:
 The offset vector is very simple, just subtract the current position from the position of the previous frame.
 
 ```c#
-Vector3 currentPosition = card.position;
+Vector3 currentPosition = transform.position;
 Vector3 offset = currentPosition - oldPosition;
 
 ...
