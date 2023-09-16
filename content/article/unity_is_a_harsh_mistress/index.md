@@ -7,10 +7,8 @@ icon: "fa-newspaper"
 showDate: false
 categories: false
 tags: false
-featuredImage: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
+featuredImage: "/featured.jpg"
 ---
-
-![Unity](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg "Unity")
 
 A calm analysis of Unity's latest business plans and a conclusion.
 
