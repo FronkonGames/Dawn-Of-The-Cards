@@ -7,6 +7,7 @@ icon: "fa-newspaper"
 showDate: false
 categories: false
 tags: false
+customimage: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
 ---
 
 ![Unity](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg "Unity")
@@ -202,7 +203,7 @@ The other unforgivable mistake is the cancellation of ['Gigaya'](https://unity.c
 
 And now we have to add the retroactive change, without warning, hiding it and possibly illegal of its TOS. This is something that I think is **much more serious** than the 'Unity Runtime Fee' and that finishes sinking the confidence of the companies with Unity.
 
-> # Today I **cannot recommend Unity** to a company as it has proven that it cannot be trusted.
+> # Today I **cannot recommend Unity** as it has proven that it cannot be trusted.
 
 I really doubt that Unity will still be around in 5 years as it is today if it continues on this course with John Riccitiello.
 
