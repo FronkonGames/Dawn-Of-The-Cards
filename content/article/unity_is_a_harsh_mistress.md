@@ -2,6 +2,7 @@
 title: "Unity is a harsh mistress 💔"
 date: 2023-09-15
 categories: ['Devblog']
+image: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
 tags: ['Devblog']
 icon: "fa-newspaper"
 showDate: false
@@ -9,7 +10,7 @@ categories: false
 tags: false
 ---
 
-![Promo](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg "Promo")
+![Unity](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg "Unity")
 
 A calm analysis of Unity's latest business plans and a conclusion.
 
@@ -206,6 +207,6 @@ And now we have to add the retroactive change, without warning, hiding it and po
 
 I really doubt that Unity will still be around in 5 years as it is today if it continues on this course with John Riccitiello.
 
-Personalmente voy a seguir usando Unity ya que una amplia mayoria de mis ingresos actuales vienen de su Asset Store, algo en que supera ampliamente a su competencia. El juego que estoy desarrollando no le afecta el 'Unity Runtime Fee' ya que no sera F2P.
+**Personally, I will continue to use Unity** as a large majority of my current income comes from its [Asset Store](https://assetstore.unity.com/publishers/62716), something in which it far surpasses its competition. The game I am developing is not affected by the 'Unity Runtime Fee' as it will not be F2P.
 
 I just hope Unity comes to its senses, stops buying companies to fatten its stock market value (which is not happening) and **John Riccitiello resigns**.
