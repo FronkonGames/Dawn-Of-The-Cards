@@ -106,7 +106,7 @@ And not only the community is pissed, but also the Unity engineers, whose superi
 
 # How it affects us
 
-If you use Unity, the situation is worrying. But not for the reasons you think. The '**Unity Runtime Fee**' will negatively affect:
+If you use Unity, the situation is worrying. But not for the reasons you think. The '**Unity Runtime Fee**' will have a negative economic impact on:
 
 > # **Free games with a very low [ARPU](https://en.wikipedia.org/wiki/Average_revenue_per_user)**
 
