@@ -6,8 +6,8 @@
     <div class="container" style="height: 400px;">
         <div class="logo" style="margin-top: 250px;">
             <a href="{{ .Site.BaseURL | relLangURL }}" class="logo">
-                {{ if and (isset .Site.Params "customimage") (ne .Site.Params.customImage "") }}
-                    <img src="{{ .Site.Params.customImage | relURL }}" alt="">
+                {{ if and (isset .Site.Params "featuredImage") (ne .Site.Params.featuredImage "") }}
+                    <img src="{{ .Site.Params.featuredImage | relURL }}" alt="">
                 {{ else }}
                     {{ $avatarEmail := "" }}
                     {{ if not (eq .Site.Params.avatarEmail nil) }}

@@ -7,7 +7,6 @@ icon: "fa-newspaper"
 showDate: false
 categories: false
 tags: false
-featuredImage: "/featured.jpg"
 ---
 
 A calm analysis of Unity's latest business plans and a conclusion.
