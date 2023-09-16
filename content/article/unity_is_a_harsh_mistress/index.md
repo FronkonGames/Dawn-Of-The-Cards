@@ -7,7 +7,7 @@ icon: "fa-newspaper"
 showDate: false
 categories: false
 tags: false
-image: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
+featuredImage: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
 ---
 
 ![Unity](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg "Unity")
