@@ -2,7 +2,6 @@
 title: "Unity is a harsh mistress 💔"
 date: 2023-09-15
 categories: ['Devblog']
-image: "/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/riccitiello.jpg"
 tags: ['Devblog']
 icon: "fa-newspaper"
 showDate: false
