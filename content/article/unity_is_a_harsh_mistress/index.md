@@ -90,7 +90,7 @@ As of January 1 2024, **no matter what version** of Unity you make your game wit
 
 # Community reaction
 
-![Fucked by Unity](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/fuckedbyunity.jpg "Fucked by Unity")
+![Fucked by Unity](fuckedbyunity.jpg "Fucked by Unity")
 
 Thanks to poor communication from Unity, the majority reaction has been [total](https://garry.net/posts/unity-can-get-fucked) [rejection](https://twitter.com/FuckedByUnity), misinformation, calls for a [boycott](https://mobilegamer.biz/unity-boycott-begins-as-devs-switch-off-ads-to-force-a-runtime-fee-reversal/), calls for its CEO to resign, many [m](https://twitter.com/fronkongames/status/1701929824128770467)[e](https://twitter.com/fronkongames/status/1701933277236383763)[m](https://twitter.com/fronkongames/status/1702277729410785688)[e](https://twitter.com/fronkongames/status/1702360626536833108)[s](https://www.reddit.com/r/Unity3D/comments/16iz63g/goodbye_my_darling_you_were_taken_too_soon/), hatred and even [death threats](https://www.bloomberg.com/news/articles/2023-09-14/video-game-company-unity-closes-offices-following-death-threat)[^3].
 
@@ -98,11 +98,11 @@ Thanks to poor communication from Unity, the majority reaction has been [total](
 
 It also did not help to know that its CEO [John Riccitiello](https://en.wikipedia.org/wiki/John_Riccitiello) sold, days before changing the payment plans, [2000 shares of Unity](https://finance.yahoo.com/news/unity-software-incs-president-ceo-050515124.html). Shares that today are worth -47% of their original [IPO](https://venturebeat.com/business/unity-technologies-raises-more-than-1-1-billion-in-ipo-at-12-1-billion-valuation/) value.
 
-![Stocks](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/stocks.jpg "Stocks")
+![Stocks](stocks.jpg "Stocks")
 
 And not only the community is pissed, but also the Unity engineers, whose superiors don't seem to care much about what they think:
 
-![Employee](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/employee.jpg "Employee")
+![Employee](employee.jpg "Employee")
 
 # How it affects us
 
@@ -124,11 +124,11 @@ Let's see it with these graphs[^4], first for using '**Unity Personal**' and '**
 
 [^4]: [Source](https://blog.runevision.com/2023/09/charts-to-visualize-how-much-you-owe.html).
 
-![Plus](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/plus.png "Plus")
+![Plus](plus.png "Plus")
 
 And this one for '**Unity Pro**'.
 
-![Pro](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/pro.png "Pro")
+![Pro](pro.png "Pro")
 
 * Most of us are in the 0% zone (according to Unity about 90%) 🥲.
 * If you earn more than $200,000 net, it makes sense for you to upgrade to the '**Unity Pro**' plan.
@@ -137,7 +137,7 @@ And this one for '**Unity Pro**'.
 
 # My conclusions
 
-![game](/Dawn-Of-The-Cards/images/dragging_and_dropping_3d_cards/promo.gif "game")
+![Truth](truth.jpg "Truth")
 
 I have been using Unity [professionally](https://github.com/FronkonGames) since version 4. With Unity I have developed games for PC, mobile and consoles. I've been [selling assets in their store](https://assetstore.unity.com/publishers/62716) for almost 10 years.
 
@@ -194,7 +194,7 @@ For me, the **worst thing** that has happened in these 10 years is the chaos gen
 
 Fortunately Unity is already working on ['Block Shaders'](https://forum.unity.com/threads/block-shaders-surface-shaders-for-srps-and-more-public-demo-now-available.1350497/), something similar to the old Surface Shaders. It has only taken 5 years of complaining.
 
-![Gigaya](/Dawn-Of-The-Cards/images/unity_is_a_harsh_mistress/gigaya.jpg "Gigaya")
+![Gigaya](gigaya.jpg "Gigaya")
 
 The other unforgivable mistake is the cancellation of ['Gigaya'](https://unity.com/demos/gigaya). Unity needs to develop games to offer better solutions and better pipelines to its customers, something Epic has been doing for years with Unreal. 'Gigaya' was going to be the first full game (not tech demo or scripted) of Unity, but someone decided to cancel it and fire the whole team.
 
@@ -204,6 +204,6 @@ And now we have to add the retroactive change, without warning, hiding it and po
 
 I really doubt that Unity will still be around in 5 years as it is today if it continues on this course with John Riccitiello.
 
-**Personally, I will continue to use Unity** as a large majority of my current income comes from its [Asset Store](https://assetstore.unity.com/publishers/62716), something in which it far surpasses its competition. The game I am developing is not affected by the 'Unity Runtime Fee' as it will not be F2P.
+**Personally, I will continue to use Unity** as a large majority of my current income comes from its [Asset Store](https://assetstore.unity.com/publishers/62716), something in which it far surpasses its competition. The game I am developing is **not affected** by the 'Unity Runtime Fee' as it will not be F2P.
 
 I just hope Unity comes to its senses, stops buying companies to fatten its stock market value (which is not happening) and **John Riccitiello resigns**.
