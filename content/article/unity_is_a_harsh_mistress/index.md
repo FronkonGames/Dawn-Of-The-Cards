@@ -13,6 +13,35 @@ A calm analysis of Unity's latest business plans and a conclusion.
 
 <!--more-->
 
+{{< notice note "UPDATE (22/09/2023)" >}}
+
+# UPDATE (22/09/2023)
+
+After almost a week of silence from Unity, they have [finally released](https://blog.unity.com/news/open-letter-on-runtime-fee) the following today:
+
+![Update](update_1.png "Update #1")
+
+That in summary:
+
+* You can use the free version, Unity Personal, if your profits are less than **$200,000** (previously $100,000).
+* The splash screen 'Made with Unity' requirement **is eliminated**.
+* Unity versions prior to 2024 are **not subject to the change in pricing policy**.
+* Games earning **more than $10,000,000** in the last 12 months will pay whichever is less:
+  * **2.5% of profits**.
+  * A figure calculated according to the number of new installations each month.
+* Both the earnings and the number of installations will be **reported by the developer himself**.
+
+**So basically the Unreal model, but cheaper**.
+
+These changes solve what for me were the two main problems with the new payment plan:
+
+* It is **no longer retroactive**. The TOS will be that of the version of Unity you use.
+* The information on the number of new installations will be **provided by the developer, not by a Unity "algorithm"**.
+
+Although the damage to trust with Unity has already been done, it is a step in the right direction. We'll see what the future holds...
+
+{{< /notice >}}
+
 # What is going on?
 
 If you use the Unity game development engine, you are probably aware of the radical, and controversial, change in their [pricing plans](https://blog.unity.com/news/plan-pricing-and-packaging-updates).
