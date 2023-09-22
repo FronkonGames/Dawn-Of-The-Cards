@@ -26,7 +26,7 @@ That in summary:
 * You can use the free version, Unity Personal, if your profits are less than **$200,000** (previously $100,000).
 * The splash screen 'Made with Unity' requirement **is eliminated**.
 * Unity versions prior to 2024 are **not subject to the change in pricing policy**.
-* Games earning **more than $10,000,000** in the last 12 months will pay whichever is less:
+* Games earning **more than $1,000,000** in the last 12 months will pay whichever is less:
   * **2.5% of profits**.
   * A figure calculated according to the number of new installations each month.
 * Both the earnings and the number of installations will be **reported by the developer himself**.
