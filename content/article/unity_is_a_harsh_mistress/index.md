@@ -31,7 +31,9 @@ That in summary:
   * A figure calculated according to the number of new installations each month.
 * Both the earnings and the number of installations will be **reported by the developer himself**.
 
-**So basically the Unreal model, but cheaper**.
+**So similar to the Unreal model**, but with these differences:
+
+![Unreal Unity](unreal-unity.png "Unreal Unity")
 
 These changes solve what for me were the two main problems with the new payment plan:
 
