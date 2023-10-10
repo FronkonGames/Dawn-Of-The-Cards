@@ -16,6 +16,8 @@ A calm analysis of Unity's latest business plans and a conclusion.
 {{< notice note label "UPDATE (10/10/2023)">}}
 Today it was [announced](https://investors.unity.com/news/news-details/2023/Unity-Announces-Leadership-Transition/default.aspx) that [John Riccitiello](https://en.wikipedia.org/wiki/John_Riccitiello) is stepping down from all of his positions at Unity: President, CEO, Chairman and member of the board of directors.
 
+![Bye](riccitiello_bye.jpg "Bye")
+
 [James Moon Whitehurst](https://en.wikipedia.org/wiki/Jim_Whitehurst) will serve as interim CEO. Whitehurst is a former president of IBM and CEO of Red Hat, and is currently a '_Special Advisor_' at [Silver Lake](https://en.wikipedia.org/wiki/Silver_Lake_(investment_firm)), which owns 10% of Unity.
 
 Let's take a look at the current leadership of Unity:
