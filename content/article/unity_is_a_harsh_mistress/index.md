@@ -1,5 +1,6 @@
 ---
 title: "Unity is a harsh mistress 💔"
+image: "riccitiello_bye.jpg"
 date: 2023-09-15
 categories: ['Devblog']
 tags: ['Devblog']
