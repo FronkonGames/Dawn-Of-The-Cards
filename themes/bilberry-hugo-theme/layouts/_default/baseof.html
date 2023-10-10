@@ -71,6 +71,14 @@
     <meta property="og:image" content="{{ .Scratch.Get "image" | absURL }}">
     <meta property="og:url" content="{{ .Permalink | absURL }}">
     <meta property="og:site_name" content="{{ .Site.Title }}">
+
+    <meta name="twitter:card" content="{{ .Scratch.Get "image" | absURL }}">
+    <meta property="twitter:domain" content="fronkongames.github.io">
+    <meta property="twitter:url" content="{{ .Permalink | absURL }}">
+    <meta name="twitter:title" content="{{ .Scratch.Get "title" }}">
+    <meta name="twitter:description" content="{{ .Scratch.Get "description" }}">
+    <meta name="twitter:image"content="{{ .Scratch.Get "image" | absURL }}">
+
     {{- if .IsPage }}
     <meta property="og:type" content="article">
     {{- else -}}
