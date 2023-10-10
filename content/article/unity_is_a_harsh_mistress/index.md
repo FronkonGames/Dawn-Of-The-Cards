@@ -28,7 +28,7 @@ Let's take a look at the current leadership of Unity:
 * [Luc Barthelet](https://www.linkedin.com/in/marcwhitten/), CTO.
 * [Carol Carpenter](https://www.linkedin.com/in/carolwcarpenter/), [Scott Pitasky](https://www.linkedin.com/in/scott-pitasky-4999891/), [Anirma Gupta](https://www.linkedin.com/in/anirmagupta/), [Clive Downie](https://www.linkedin.com/in/clive-downie-2003b07/), [Jessica Lindl](https://www.linkedin.com/in/jessica-lindl-8b73a5/): Vice presidents.
 
-I think all of us who use Unity every day are happy to see Riccitiello leave. I would say it's a big step towards regaining lost confidence but seeing Tomer Bar-Zeev as president stops me from thinking so. Let's remember that he is the founder of one of the most hated malware companies and _possibly_ one of the precursors along with Riccitiello of the changes in Unity's business model. It is a pity that the purge stops only Riccitiello.
+I think all of us who use Unity every day are happy to see Riccitiello leave. I would say it's a big step towards regaining lost confidence but seeing Tomer Bar-Zeev as president stops me from thinking so. Let's remember that he is the founder of one of the most hated malware companies and _possibly_ one of the precursors along with Riccitiello of the changes in Unity's business model. It is a pity that the purge stops only at Riccitiello.
 
 If someone from the board members can refloat the ship, it's Whitehurst. During IBM's acquisition of Red Hat, he built a good reputation.
 
